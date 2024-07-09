@@ -1,0 +1,10 @@
+.dialog-pane {
+    -fx-background-color: #f4f4f4;
+}
+
+.button {
+    -fx-background-color: #09c;
+    -fx-text-fill: white;
+    -fx-border-color: #09c;
+    -fx-border-radius: 5;
+}

@@ -58,7 +58,7 @@
                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                   <children>
-                     <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" prefHeight="43.0" text="101" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                     <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" prefHeight="43.0" text="101" onAction="#showDialog" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" prefHeight="43.0" text="103" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" prefHeight="43.0" text="102" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" prefHeight="43.0" text="104" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
