@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
 
-        Scene scene = new Scene(scrollPane, 320, 240, true, SceneAntialiasing.BALANCED);
+        Scene scene = new Scene(scrollPane, 1280, 720, true, SceneAntialiasing.BALANCED);
         scene.getStylesheets().add(getClass().getResource("dashboard.css").toExternalForm());
         stage.setTitle("PUP SRC ROOM SCHEDULER");
         stage.setScene(scene);

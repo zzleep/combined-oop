@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -97,9 +98,11 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void launchHelloApplication() {
-        // Start HelloApplication on JavaFX Application Thread
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            // Launch HelloApplication
+        // Dispose of the current Main frame
+        dispose();
+
+        // Start HelloApplication on the Event Dispatch Thread
+        SwingUtilities.invokeLater(() -> {
             try {
                 HelloApplication.launch(HelloApplication.class);
             } catch (Exception e) {
