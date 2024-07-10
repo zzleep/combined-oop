@@ -1,6 +1,5 @@
 package com.example.dashboard_test.raven.component;
 
-
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -28,7 +27,8 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
 
     private MyTextField txtUser;
     private MyTextField txtUser2;
-    private MyTextField txtEmail;
+    private MyTextField txtEmailRegister; // Separate instance for register panel
+    private MyTextField txtEmailForgotPass; // Separate instance for forgot pass panel
     private MyPasswordField txtPass;
     private MyPasswordField txtConfirmPass;
     private MyPasswordField txtNewPass;
@@ -63,6 +63,14 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         add(forgotPass, "card5");
         add(createNewPass, "card6");
         add(emailSent, "card7");
+
+        // Initialize txtEmail for register panel
+        txtEmailRegister = new MyTextField();
+        txtEmailRegister.setHint("Email");
+
+        // Initialize txtEmail for forgot pass panel
+        txtEmailForgotPass = new MyTextField();
+        txtEmailForgotPass.setHint("Email");
     }
 
     private void initRegister() {
@@ -81,9 +89,8 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         txtUser2.setHint("First Name");
         register.add(txtUser2, "w 60%, wrap 15");
 
-        txtEmail = new MyTextField();
-        txtEmail.setHint("Email");
-        register.add(txtEmail, "w 60%, wrap 15");
+        // Use txtEmailRegister for register panel
+        register.add(txtEmailRegister, "w 60%, wrap 15");
 
         txtPass = new MyPasswordField();
         txtPass.setHint("Password");
@@ -93,6 +100,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         txtConfirmPass.setHint("Confirm Password");
         register.add(txtConfirmPass, "w 60%, wrap 15");
 
+        // Adjust the registration action to use txtEmailRegister
         Button cmd = new Button();
         cmd.setBackground(new Color(165, 42, 42));
         cmd.setForeground(new Color(250, 250, 250));
@@ -102,7 +110,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
             public void actionPerformed(ActionEvent e) {
                 String lastName = txtUser.getText().trim();
                 String firstName = txtUser2.getText().trim();
-                String email = txtEmail.getText().trim();
+                String email = txtEmailRegister.getText().trim(); // Use txtEmailRegister
                 String password = new String(txtPass.getPassword());
                 String confirmPassword = new String(txtConfirmPass.getPassword());
 
@@ -116,16 +124,16 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
                 try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/oop_main", "root", "")) {
                     String query = "INSERT INTO users (userName, userEmail, userPassword) VALUES (?, ?, ?)";
                     try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-                        pstmt.setString(1, firstName + " " + lastName);
+                        pstmt.setString(1, lastName + ", " + firstName);
                         pstmt.setString(2, email);
                         pstmt.setString(3, password);
                         int rowsInserted = pstmt.executeUpdate();
                         if (rowsInserted > 0) {
                             JOptionPane.showMessageDialog(null, "Registration successful", "Success", JOptionPane.INFORMATION_MESSAGE);
-                            // Clear input fields
+                            // Clear input fields only on successful registration
                             txtUser.setText("");
                             txtUser2.setText("");
-                            txtEmail.setText("");
+                            txtEmailRegister.setText("");
                             txtPass.setText("");
                             txtConfirmPass.setText("");
                         } else {
@@ -140,6 +148,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         register.add(cmd, "w 40%, h 40, wrap 20");
     }
 
+
     private void initLogin() {
         login.setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push"));
 
@@ -148,7 +157,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         label.setForeground(new Color(0, 0, 0));
         login.add(label);
 
-        MyTextField txtEmail = new MyTextField();
+        MyTextField txtEmail = new MyTextField();  // Local variable shadowing issue
         txtEmail.setHint("Email");
         login.add(txtEmail, "w 60%");
 
@@ -176,7 +185,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         cmd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String email = txtEmail.getText().trim();
+                String email = txtEmail.getText().trim();  // Use the correct txtEmail field
                 String password = new String(txtPass.getPassword());
 
                 // Database query logic
@@ -224,9 +233,8 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         label.setForeground(new Color(0, 0, 0));
         forgotPass.add(label);
 
-        txtEmail = new MyTextField();
-        txtEmail.setHint("Email");
-        forgotPass.add(txtEmail, "w 60%");
+        // Use txtEmailForgotPass for forgot pass panel
+        forgotPass.add(txtEmailForgotPass, "w 60%, wrap 15");
 
         JButton sendEmailButton = new JButton("Send Email");
         sendEmailButton.setBackground(new Color(165, 42, 42));
@@ -234,14 +242,12 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         sendEmailButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String email = txtEmail.getText().trim();
+                String email = txtEmailForgotPass.getText().trim(); // Use txtEmailForgotPass
 
-                // Validate and send email logic
-                // Replace this with your email sending functionality
-                JOptionPane.showMessageDialog(null, "Email sent to " + email, "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                // Show confirmation panel or perform necessary actions
-                showEmailSent(true);
+                // Implement email sending logic for password reset
+                // Example: Send email with password reset link
+                // Placeholder implementation
+                JOptionPane.showMessageDialog(null, "Password reset link sent to: " + email, "Success", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         forgotPass.add(sendEmailButton, "w 40%, h 40");
@@ -283,7 +289,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
                     String query = "UPDATE users SET userPassword = ? WHERE userEmail = ?";
                     try (PreparedStatement pstmt = conn.prepareStatement(query)) {
                         pstmt.setString(1, newPassword);
-                        pstmt.setString(2, txtEmail.getText().trim());
+                        pstmt.setString(2, txtEmailForgotPass.getText().trim()); // Update password based on userEmail
                         int rowsUpdated = pstmt.executeUpdate();
                         if (rowsUpdated > 0) {
                             JOptionPane.showMessageDialog(null, "Password reset successful", "Success", JOptionPane.INFORMATION_MESSAGE);
