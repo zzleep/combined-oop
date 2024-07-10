@@ -142,8 +142,7 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
 
     private void initLogin() {
         login.setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push"));
-        int logoWidth = 100;
-        int logoHeight = -1;
+
         JLabel label = new JLabel("<html><div style='text-align: center;'>Welcome to PUP-SRC<br>Room Scheduling System</div></html>");
         label.setFont(new Font("sansserif", 1, 30));
         label.setForeground(new Color(0, 0, 0));

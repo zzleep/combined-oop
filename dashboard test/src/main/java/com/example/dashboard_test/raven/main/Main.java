@@ -75,10 +75,6 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void end() {
                 isLogin = !isLogin;
-                // After successful login, launch HelloApplication
-                if (!isLogin) {
-                    launchHelloApplication();
-                }
             }
         };
         Animator animator = new Animator(800, target);
@@ -103,10 +99,6 @@ public class Main extends javax.swing.JFrame {
     private void launchHelloApplication() {
         // Start HelloApplication on JavaFX Application Thread
         javax.swing.SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(false); // Hide the Swing frame if necessary
-
             // Launch HelloApplication
             try {
                 HelloApplication.launch(HelloApplication.class);
