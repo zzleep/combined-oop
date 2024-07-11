@@ -1,14 +1,10 @@
 package com.example.dashboard_test.raven.component;
 
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import com.example.dashboard_test.HelloApplication;
@@ -20,7 +16,6 @@ import com.raven.swing.MyTextField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
 import javax.swing.*;
 
 public class PanelLoginAndRegister extends javax.swing.JLayeredPane {

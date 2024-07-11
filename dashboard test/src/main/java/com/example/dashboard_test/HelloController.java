@@ -77,115 +77,30 @@ public class HelloController {
             e.printStackTrace();
         }
     }
+
     @FXML
-    private void handleSidebarButton1() {
-        contentHBox.getChildren().clear();
-        // Creating the UI elements from the provided FXML code
-        Label profName = new Label("Eco, Kimberly A.");
-        profName.setLayoutX(165.0);
-        profName.setLayoutY(70.0);
-        profName.setPrefHeight(46.0);
-        profName.setPrefWidth(1064.0);
-        profName.setStyle("-fx-background-color: White;");
-        profName.setTextFill(Color.WHITE);
+    private void handleSideButton2() {
+        try {
 
-        Text text = new Text("Eco, Kimberly A.");
-        text.setFill(Color.rgb(148, 4, 4));
-        text.setLayoutX(190.0);
-        text.setLayoutY(102.0);
-        text.setFont(Font.font("System Bold", 22.0));
-        text.setWrappingWidth(174.9367218017578);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Class.fxml"));
+            Parent parent = fxmlLoader.load();
 
-        Pane container = new Pane();
-        container.setId("container");
-        container.setLayoutX(168.0);
-        container.setLayoutY(133.0);
-        container.setPrefHeight(639.0);
-        container.setPrefWidth(1064.0);
-        container.setStyle("-fx-background-color: white;");
+            // Wrap the parent in a ScrollPane
+            ScrollPane scrollPane = new ScrollPane(parent);
+            scrollPane.setPannable(true);
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        Pane roomContainer = new Pane();
-        roomContainer.setId("room-container");
-        roomContainer.setLayoutX(14.0);
-        roomContainer.setLayoutY(14.0);
-        roomContainer.setPrefHeight(486.0);
-        roomContainer.setPrefWidth(1036.0);
-        roomContainer.setStyle("-fx-background-color: white;");
-
-        Pane titleContainer = new Pane();
-        titleContainer.setId("title-container");
-        titleContainer.setPrefHeight(54.0);
-        titleContainer.setPrefWidth(1036.0);
-        titleContainer.setStyle("-fx-background-color: maroon;");
-
-        Text classRoomText = new Text("CLASSROOMS");
-        classRoomText.setId("classRoomText");
-        classRoomText.setFill(Color.WHITE);
-        classRoomText.setLayoutX(348.0);
-        classRoomText.setLayoutY(35.0);
-        classRoomText.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        classRoomText.setWrappingWidth(307.26910400390625);
-        classRoomText.setFont(Font.font("System Bold", 23.0));
-
-        titleContainer.getChildren().add(classRoomText);
-        roomContainer.getChildren().add(titleContainer);
-
-        // Repeat for the other elements such as GridPane, Buttons, and Text
-        // Example for the first GridPane
-        GridPane gridPane1 = new GridPane();
-        gridPane1.setLayoutX(143.0);
-        gridPane1.setLayoutY(100.0);
-        gridPane1.setPrefHeight(72.0);
-        gridPane1.setPrefWidth(728.0);
-
-        for (int i = 0; i < 10; i++) {
-            ColumnConstraints col = new ColumnConstraints();
-            col.setHgrow(Priority.SOMETIMES);
-            col.setMinWidth(10.0);
-            col.setPrefWidth(100.0);
-            gridPane1.getColumnConstraints().add(col);
+            // Create a new scene with specified dimensions and add the scrollPane to it
+            Scene scene = new Scene(scrollPane, 1280, 720); // Set desired width and height here
+            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Class Window"); // Optionally set a title for the new window
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        RowConstraints row = new RowConstraints();
-        row.setMinHeight(10.0);
-        row.setPrefHeight(30.0);
-        row.setVgrow(Priority.SOMETIMES);
-        gridPane1.getRowConstraints().add(row);
-
-        // Adding buttons to the first grid pane
-        Button button101 = new Button("101");
-        button101.setId("buttons1");
-        button101.setMaxWidth(52.0);
-        button101.setPrefHeight(43.0);
-        GridPane.setHalignment(button101, HPos.CENTER);
-        GridPane.setValignment(button101, VPos.CENTER);
-        button101.setOnAction(event -> showDialog());
-        gridPane1.add(button101, 0, 0);
-
-        // Repeat for the other buttons (example for button 103)
-        Button button103 = new Button("103");
-        button103.setId("buttons1");
-        button103.setMaxWidth(52.0);
-        button103.setPrefHeight(43.0);
-        GridPane.setHalignment(button103, HPos.CENTER);
-        GridPane.setValignment(button103, VPos.CENTER);
-        gridPane1.add(button103, 2, 0);
-
-        // Add all the other buttons similarly
-        // ...
-
-        roomContainer.getChildren().add(gridPane1);
-
-        // Repeat for other grid panes, texts, and panes
-        // ...
-
-        container.getChildren().add(roomContainer);
-        contentHBox.getChildren().add(container);
-
-        // Add the container to the content HBox
-        contentHBox.getChildren().add(profName);
-        contentHBox.getChildren().add(text);
-        contentHBox.getChildren().add(container);
     }
 
     @FXML
