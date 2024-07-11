@@ -17,37 +17,104 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.text.*;
-import javafx.scene.paint.Color;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
 
 import java.io.IOException;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClassController {
     private Stage bookingStage; // To keep track of BookingDialog stage
+    private int currentRoomNumber;
+    // A map to store button IDs and corresponding room numbers
+    private Map<String, Integer> buttonRoomMap = new HashMap<>();
 
     @FXML
-    private void showDialog() {
+    private HBox contentHBox;
+
+    // Initialize method to populate buttonRoomMap
+    @FXML
+    public void initialize() {
+        buttonRoomMap.put("button101", 101);
+        buttonRoomMap.put("button102", 102);
+        buttonRoomMap.put("button103", 103);
+        buttonRoomMap.put("button104", 104);
+        buttonRoomMap.put("button105", 105);
+        buttonRoomMap.put("button106", 106);
+        buttonRoomMap.put("button107", 107);
+        buttonRoomMap.put("button108", 108);
+        buttonRoomMap.put("button109", 109);
+        buttonRoomMap.put("button110", 110);
+
+        buttonRoomMap.put("button201", 201);
+        buttonRoomMap.put("button202", 202);
+        buttonRoomMap.put("button203", 203);
+        buttonRoomMap.put("button204", 204);
+        buttonRoomMap.put("button205", 205);
+        buttonRoomMap.put("button206", 206);
+        buttonRoomMap.put("button207", 207);
+        buttonRoomMap.put("button208", 208);
+        buttonRoomMap.put("button209", 209);
+        buttonRoomMap.put("button210", 210);
+
+        buttonRoomMap.put("button301", 301);
+        buttonRoomMap.put("button302", 302);
+        buttonRoomMap.put("button303", 303);
+        buttonRoomMap.put("button304", 304);
+        buttonRoomMap.put("button305", 305);
+        buttonRoomMap.put("button306", 306);
+        buttonRoomMap.put("button307", 307);
+        buttonRoomMap.put("button308", 308);
+        buttonRoomMap.put("button309", 309);
+        buttonRoomMap.put("button310", 310);
+        buttonRoomMap.put("button311", 311);
+
+        buttonRoomMap.put("button401", 401);
+        buttonRoomMap.put("button402", 402);
+        buttonRoomMap.put("button403", 403);
+        buttonRoomMap.put("button404", 404);
+        buttonRoomMap.put("button405", 405);
+        buttonRoomMap.put("button406", 406);
+        buttonRoomMap.put("button407", 407);
+        buttonRoomMap.put("button408", 408);
+        buttonRoomMap.put("button409", 409);
+        buttonRoomMap.put("button410", 410);
+
+
+        // Add more buttons and room numbers as needed
+    }
+
+    @FXML
+    private void handleRoomButton(ActionEvent event) {
+        Button clickedButton = (Button) event.getSource();
+        String buttonId = clickedButton.getId();
+        Integer roomNumber = buttonRoomMap.get(buttonId);
+
+        if (roomNumber != null) {
+            // Handle room booking logic with the corresponding room number
+            System.out.println("Room number: " + roomNumber);
+            // For example, open the booking dialog for the specific room
+            showDialog(roomNumber);
+        }
+    }
+
+    @FXML
+    public void showDialog(ActionEvent actionEvent) {
+        Button sourceButton = (Button) actionEvent.getSource();
+        int roomNumber = Integer.parseInt(sourceButton.getId().substring(7)); // Extract room number from button ID
+        showDialog(roomNumber);
+    }
+
+    private void showDialog(int roomNumber) {
+        currentRoomNumber = roomNumber; // Store the room number
+
         Dialog<Void> dialog = new Dialog<>();
 
         dialog.setTitle("Room Booking");
-        dialog.setHeaderText("Do you want to book a room?");
+        dialog.setHeaderText("Do you want to book room " + roomNumber + "?");
 
         ButtonType yesButtonType = new ButtonType("Yes", ButtonBar.ButtonData.YES);
         ButtonType noButtonType = new ButtonType("No", ButtonBar.ButtonData.NO);
@@ -70,6 +137,10 @@ public class ClassController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BookingDialog.fxml"));
             Parent parent = fxmlLoader.load();
 
+            // Access the controller of the dialog
+            BookingDialogController controller = fxmlLoader.getController();
+            controller.setRoomNumber(currentRoomNumber); // Pass room number to dialog controller
+
             // Set up stage asynchronously
             Platform.runLater(() -> {
                 bookingStage = new Stage();
@@ -83,8 +154,6 @@ public class ClassController {
         }
     }
 
-    @FXML
-    private HBox contentHBox;
 
     @FXML
     private void handleSidebarButton1() {
@@ -93,10 +162,8 @@ public class ClassController {
 
     @FXML
     private void handleSidebarButton3() {
-        // Clear existing content if needed
         contentHBox.getChildren().clear();
 
-        // Create new content for Class Schedule button
         VBox vbox = new VBox();
 
         HBox hbox1 = new HBox();
@@ -109,18 +176,15 @@ public class ClassController {
         Button addScheduleButton = new Button("Add Schedule");
         addScheduleButton.setPrefHeight(37);
         addScheduleButton.setPrefWidth(333);
-        addScheduleButton.setOnAction(event -> showDialog()); // Open Dialog
+        addScheduleButton.setOnAction(event -> showDialog(0)); // Open Dialog
         hbox1.getChildren().addAll(label, addScheduleButton);
 
-        // Ensure these tables are initialized only once
         TableView<Object> table1 = createTableView();
         TableView<Object> table2 = createTableView();
         TableView<Object> table3 = createTableView();
 
-        // Add new content to vbox
         vbox.getChildren().addAll(hbox1, table1, table2, table3);
 
-        // Add vbox to contentHBox
         contentHBox.getChildren().add(vbox);
     }
 
@@ -150,4 +214,5 @@ public class ClassController {
 
         return table;
     }
+
 }

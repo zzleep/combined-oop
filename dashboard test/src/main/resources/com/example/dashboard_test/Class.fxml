@@ -69,16 +69,16 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="101" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="103" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="102" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="104" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="105" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="106" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="107" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" prefHeight="43.0" text=" Clinic Room" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="109" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons1" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="110" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons101" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="101" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons102" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="102" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons103" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="103" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons104" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="104" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons105" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="105" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons106" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="106" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons107" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="107" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons108" maxWidth="52.0" mnemonicParsing="false" prefHeight="43.0" text=" Clinic Room" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons109" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="109" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons110" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="110" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                             </children>
                         </GridPane>
                         <GridPane layoutX="143.0" layoutY="199.0" prefHeight="72.0" prefWidth="728.0">
@@ -98,28 +98,28 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Button id="buttons2" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="201" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons2" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="203" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons2" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="Admin" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons2" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="204" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons2" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="205" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons2" alignment="CENTER" mnemonicParsing="false" prefHeight="43.0" prefWidth="53.0" text=" S. Affairs" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <Button fx:id="buttons201" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="201" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons202" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="Admin" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons203" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="203" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons204" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="204" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons205" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="205" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons206" alignment="CENTER" mnemonicParsing="false" prefHeight="43.0" prefWidth="53.0" text=" S. Affairs" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <font>
                                         <Font size="10.0" />
                                     </font></Button>
-                                <Button id="buttons2" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="D. Office " textAlignment="CENTER" wrapText="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <Button fx:id="buttons207" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="D. Office " textAlignment="CENTER" wrapText="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <font>
                                         <Font size="11.0" />
                                     </font></Button>
-                                <Button id="buttons2" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="SC Office" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <Button fx:id="buttons208" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="SC Office" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <font>
                                         <Font size="10.0" />
                                     </font></Button>
-                                <Button id="buttons2" mnemonicParsing="false" prefHeight="46.0" prefWidth="56.0" text="Faculty" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <Button fx:id="buttons209" mnemonicParsing="false" prefHeight="46.0" prefWidth="56.0" text="Faculty" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <font>
                                         <Font size="10.0" />
                                     </font></Button>
-                                <Button id="buttons2" mnemonicParsing="false" prefHeight="43.0" prefWidth="53.0" text=" S. Service" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <Button fx:id="buttons210" mnemonicParsing="false" prefHeight="43.0" prefWidth="53.0" text=" S. Service" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                     <font>
                                         <Font size="10.0" />
                                     </font></Button>
@@ -142,16 +142,16 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Button id="buttons3" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="301" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons3" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="303" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons3" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="302" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons3" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="304" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons3" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="305" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons3" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="306" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons3" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="Library" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons3" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="308" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons3" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="AVR" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons3" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="AVR" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons301" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="301" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons302" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="302" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons303" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="303" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons305" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="304" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons306" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="305" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons307" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="306" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons308" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="Library" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons309" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="308" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons310" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="AVR" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons311" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="AVR" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                             </children>
                         </GridPane>
                         <GridPane layoutX="143.0" layoutY="397.0" prefHeight="72.0" prefWidth="728.0">
@@ -171,16 +171,16 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Button id="buttons4" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="401" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons4" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="403" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons4" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="402" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons4" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="404" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons4" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="405" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons4" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="406" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons4" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="407" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons4" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="408" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons4" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="409" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                <Button id="buttons4" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="410" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons401" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="401" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons402" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="402" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons403" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="403" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons404" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="404" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons405" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="405" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons406" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="406" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons407" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="407" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons408" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="408" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons409" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="409" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons410" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="410" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                             </children>
                         </GridPane>
                         <Text fill="#fa2626" layoutX="443.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Floor" textAlignment="CENTER" wrappingWidth="150.4000000000001">

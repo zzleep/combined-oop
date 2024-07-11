@@ -29,6 +29,8 @@ public class BookingDialogController {
     @FXML
     private DatePicker datePicker;
 
+    private int roomNumber; // Variable to store the room number
+
     @FXML
     public void initialize() {
         // Initialize combo boxes
@@ -90,6 +92,7 @@ public class BookingDialogController {
         System.out.println("Start Time: " + startTime);
         System.out.println("End Time: " + endTime);
         System.out.println("Date: " + date);
+        System.out.println("Room Number: " + roomNumber); // Log the room number
 
         // Save to database - Implement your database saving logic here
 
@@ -106,5 +109,9 @@ public class BookingDialogController {
     private void closeDialog() {
         Stage stage = (Stage) sectionComboBox.getScene().getWindow();
         stage.close();
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber; // Set the room number received from ClassController
     }
 }
