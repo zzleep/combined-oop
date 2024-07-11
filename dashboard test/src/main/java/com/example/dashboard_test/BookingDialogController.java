@@ -1,12 +1,10 @@
 package com.example.dashboard_test;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -37,16 +35,16 @@ public class BookingDialogController {
         sectionComboBox.getItems().addAll("Section 1", "Section 2", "Section 3");
         subjectComboBox.getItems().addAll("Subject 1", "Subject 2", "Subject 3");
 
-        // Initialize time pickers
+        // Initialize time pickers with 24-hour format
         initializeTimePicker(startTimePicker);
         initializeTimePicker(endTimePicker);
     }
 
     private void initializeTimePicker(ComboBox<String> timePicker) {
-        // Populate the time options (HH:mm AM/PM)
-        for (int hour = 1; hour <= 12; hour++) {
+        // Populate the time options (HH:mm 24-hour format)
+        for (int hour = 0; hour < 24; hour++) {
             for (int minute = 0; minute < 60; minute += 15) {
-                String time = String.format("%02d:%02d %s", hour, minute, hour < 12 ? "AM" : "PM");
+                String time = String.format("%02d:%02d", hour, minute);
                 timePicker.getItems().add(time);
             }
         }
@@ -59,8 +57,8 @@ public class BookingDialogController {
                 String text = timePicker.getSelectionModel().getSelectedItem(); // Get selected item
                 if (text != null) {
                     try {
-                        LocalTime time = LocalTime.parse(text, DateTimeFormatter.ofPattern("HH:mm a"));
-                        timePicker.getSelectionModel().select(time.format(DateTimeFormatter.ofPattern("hh:mm a")));
+                        LocalTime time = LocalTime.parse(text, DateTimeFormatter.ofPattern("HH:mm"));
+                        timePicker.getSelectionModel().select(time.format(DateTimeFormatter.ofPattern("HH:mm")));
                     } catch (DateTimeParseException e) {
                         timePicker.getSelectionModel().clearSelection(); // Clear selection on parse error
                         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid time format. Please use HH:mm.");
