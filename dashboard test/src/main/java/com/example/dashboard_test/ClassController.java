@@ -33,6 +33,8 @@ import javafx.scene.text.*;
 import javafx.scene.paint.Color;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+
+import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -63,17 +65,20 @@ public class ClassController {
         dialog.showAndWait();
     }
 
-    @FXML
     private void showBookingDialog() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BookingDialog.fxml"));
             Parent parent = fxmlLoader.load();
-            bookingStage = new Stage();
-            bookingStage.setTitle("Course and Subject Booking");
-            bookingStage.setScene(new Scene(parent));
-            bookingStage.initModality(Modality.APPLICATION_MODAL);
-            bookingStage.showAndWait();
-        } catch (Exception e) {
+
+            // Set up stage asynchronously
+            Platform.runLater(() -> {
+                bookingStage = new Stage();
+                bookingStage.setTitle("Course and Subject Booking");
+                bookingStage.setScene(new Scene(parent));
+                bookingStage.initModality(Modality.APPLICATION_MODAL);
+                bookingStage.showAndWait();
+            });
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

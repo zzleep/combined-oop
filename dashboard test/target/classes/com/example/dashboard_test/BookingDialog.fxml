@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -30,13 +29,13 @@
     <!-- Start Time Picker -->
     <HBox spacing="10">
         <Label text="Start Time:"/>
-        <TextField fx:id="startTimePicker" promptText="HH:mm"/>
+        <ComboBox fx:id="startTimePicker" promptText="Select Start Time"/>
     </HBox>
 
     <!-- End Time Picker -->
     <HBox spacing="10">
         <Label text="End Time:"/>
-        <TextField fx:id="endTimePicker" promptText="HH:mm"/>
+        <ComboBox fx:id="endTimePicker" promptText="Select End Time"/>
     </HBox>
 
     <!-- Date Picker -->
