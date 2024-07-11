@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import com.example.dashboard_test.HelloApplication;
 
+import com.example.dashboard_test.SessionManager;
 import net.miginfocom.swing.MigLayout;
 import com.raven.swing.Button;
 import com.raven.swing.MyPasswordField;
@@ -191,11 +192,13 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
                         pstmt.setString(2, password);
                         ResultSet rs = pstmt.executeQuery();
                         if (rs.next()) {
+                            int userId = rs.getInt("userId");
                             JOptionPane.showMessageDialog(null, "Login successful", "Success", JOptionPane.INFORMATION_MESSAGE);
                             // Clear input fields or perform necessary actions upon successful login
                             txtEmail.setText("");
                             txtPass.setText("");
                             // Proceed to your application's main functionality
+                            SessionManager.setAttribute("userId", userId);
                             launchHelloApplication(); // Launch HelloApplication after successful login
                         } else {
                             JOptionPane.showMessageDialog(null, "Invalid email or password", "Error", JOptionPane.ERROR_MESSAGE);
@@ -208,6 +211,8 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         });
         login.add(cmd, "w 40%, h 40");
     }
+
+    // Eto yung pang kuha ng naka set na user id sa session: Integer userId = (Integer) SessionManager.getAttribute("userId");
 
     private void launchHelloApplication() {
         SwingUtilities.invokeLater(new Runnable() {

@@ -21,7 +21,7 @@
             <children>
                 <Button fx:id="sidebar_btn1" layoutY="35.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Home" />
                 <Button fx:id="sidebar_btn2" layoutY="79.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Rooms" />
-                <Button fx:id="sidebar_btn3" layoutY="124.0" mnemonicParsing="false" onAction="#handleSidebarButton3" prefHeight="37.0" prefWidth="150.0" text="Class Schedule" />
+                <Button fx:id="sidebar_btn3" layoutY="124.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Class Schedule" onAction="#handleSidebarButton3"/>
             </children>
         </Pane>
         <Pane fx:id="nav" layoutX="-4.0" layoutY="-1.0" prefHeight="54.0" prefWidth="1250.0">

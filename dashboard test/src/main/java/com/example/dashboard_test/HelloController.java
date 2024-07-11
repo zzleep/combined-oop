@@ -79,7 +79,7 @@ public class HelloController {
     }
 
     @FXML
-    private void handleSideButton2() {
+    private void handleSidebarButton2() {
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Class.fxml"));
