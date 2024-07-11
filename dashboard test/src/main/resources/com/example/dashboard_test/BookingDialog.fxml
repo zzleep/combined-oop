@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox spacing="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.dashboard_test.BookingDialogController">
-    <Label fx:id="roomNumberLabel" text="Room: " />
     <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>

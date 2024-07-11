@@ -6,9 +6,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class BookingDialogController {
 
@@ -29,18 +31,38 @@ public class BookingDialogController {
 
     private int roomNumber; // Variable to store the room number
 
+    private DatabaseHandler databaseHandler; // Database handler instance
+
+    public BookingDialogController() {
+        // Initialize DatabaseHandler
+        databaseHandler = new DatabaseHandler();
+    }
+
     @FXML
     public void initialize() {
         // Initialize combo boxes
-        sectionComboBox.getItems().addAll("Section 1", "Section 2", "Section 3");
-        subjectComboBox.getItems().addAll("Subject 1", "Subject 2", "Subject 3");
+        initializeSectionComboBox();
+        initializeSubjectComboBox();
 
         // Initialize time pickers with 24-hour format
         initializeTimePicker(startTimePicker);
         initializeTimePicker(endTimePicker);
     }
 
+    private void initializeSectionComboBox() {
+        List<String> sections = databaseHandler.getAllSections();
+        sectionComboBox.getItems().addAll(sections);
+    }
+
+    private void initializeSubjectComboBox() {
+        List<String> subjects = databaseHandler.getAllSubjects();
+        subjectComboBox.getItems().addAll(subjects);
+    }
+
     private void initializeTimePicker(ComboBox<String> timePicker) {
+        // Clear items to avoid duplicates on re-initialization
+        timePicker.getItems().clear();
+
         // Populate the time options (HH:mm 24-hour format)
         for (int hour = 0; hour < 24; hour++) {
             for (int minute = 0; minute < 60; minute += 15) {
@@ -57,10 +79,12 @@ public class BookingDialogController {
                 String text = timePicker.getSelectionModel().getSelectedItem(); // Get selected item
                 if (text != null) {
                     try {
+                        // Validate and format time input
                         LocalTime time = LocalTime.parse(text, DateTimeFormatter.ofPattern("HH:mm"));
                         timePicker.getSelectionModel().select(time.format(DateTimeFormatter.ofPattern("HH:mm")));
-                    } catch (DateTimeParseException e) {
-                        timePicker.getSelectionModel().clearSelection(); // Clear selection on parse error
+                    } catch (DateTimeException e) {
+                        // Clear selection on parse error
+                        timePicker.getSelectionModel().clearSelection();
                         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid time format. Please use HH:mm.");
                         alert.showAndWait();
                     }
@@ -75,24 +99,37 @@ public class BookingDialogController {
         String subject = subjectComboBox.getSelectionModel().getSelectedItem();
         String startTime = startTimePicker.getSelectionModel().getSelectedItem();
         String endTime = endTimePicker.getSelectionModel().getSelectedItem();
-        String date = datePicker.getValue().toString();
+        LocalDate date = datePicker.getValue();
 
         // Validate input
-        if (section == null || subject == null || startTime == null || endTime == null || date.isEmpty()) {
+        if (section == null || subject == null || startTime == null || endTime == null || date == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill in all fields.");
             alert.showAndWait();
             return;
         }
 
-        // Display values for debugging purposes
-        System.out.println("Section: " + section);
-        System.out.println("Subject: " + subject);
-        System.out.println("Start Time: " + startTime);
-        System.out.println("End Time: " + endTime);
-        System.out.println("Date: " + date);
-        System.out.println("Room Number: " + roomNumber); // Log the room number
+        // Query schedules table to get schedule_id and userId
+        int scheduleId = databaseHandler.getScheduleId(section, subject);
+        int userId = databaseHandler.getUserId(scheduleId);
 
-        // Save to database - Implement your database saving logic here
+        // Query rooms table to get room_id based on roomNumber
+        int roomId = databaseHandler.getRoomId(roomNumber);
+
+        // Insert data into occupancy table
+        if (scheduleId != -1 && userId != -1 && roomId != -1) {
+            boolean success = databaseHandler.insertOccupancy(scheduleId, roomId, userId, section, subject, startTime, endTime, date);
+
+            if (success) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Booking saved successfully.");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to save booking.");
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to retrieve necessary data.");
+            alert.showAndWait();
+        }
 
         // Close the dialog
         closeDialog();
@@ -111,5 +148,10 @@ public class BookingDialogController {
 
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber; // Set the room number received from ClassController
+    }
+
+    // Cleanup method
+    public void cleanup() {
+        databaseHandler.closeConnection();
     }
 }
