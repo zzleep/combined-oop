@@ -7,40 +7,27 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.*;
-import javafx.scene.paint.Color;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
+import java.io.IOException;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 public class HelloController {
+
+    private Stage helloStage; // To keep track of the initial stage
 
     @FXML
     private HBox contentHBox;
 
+    public void setHelloStage(Stage stage) {
+        this.helloStage = stage;
+    }
 
     @FXML
     private void showDialog() {
@@ -73,7 +60,7 @@ public class HelloController {
             stage.setScene(new Scene(parent));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -81,6 +68,10 @@ public class HelloController {
     @FXML
     private void handleSidebarButton2() {
         try {
+            // Close the current helloStage
+            if (helloStage != null) {
+                helloStage.close();
+            }
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Class.fxml"));
             Parent parent = fxmlLoader.load();
@@ -98,7 +89,7 @@ public class HelloController {
             stage.setScene(scene);
             stage.setTitle("Class Window"); // Optionally set a title for the new window
             stage.show();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -124,9 +115,9 @@ public class HelloController {
         addScheduleButton.setOnAction(event -> showBookingDialog());
         hbox1.getChildren().addAll(label, addScheduleButton);
 
-        TableView table1 = createTableView();
-        TableView table2 = createTableView();
-        TableView table3 = createTableView();
+        TableView<Object> table1 = createTableView();
+        TableView<Object> table2 = createTableView();
+        TableView<Object> table3 = createTableView();
 
         // Add new content to vbox
         vbox.getChildren().addAll(hbox1, table1, table2, table3);
@@ -135,25 +126,25 @@ public class HelloController {
         contentHBox.getChildren().add(vbox);
     }
 
-    private TableView createTableView() {
-        TableView table = new TableView();
+    private TableView<Object> createTableView() {
+        TableView<Object> table = new TableView<>();
         table.setPrefHeight(200);
         table.setPrefWidth(1078);
 
-        TableColumn courseColumn = new TableColumn("Bachelor of Science in Industrial Engineering");
+        TableColumn<Object, Object> courseColumn = new TableColumn<>("Bachelor of Science in Industrial Engineering");
         courseColumn.setPrefWidth(1077);
 
-        TableColumn col1 = new TableColumn("#");
+        TableColumn<Object, Object> col1 = new TableColumn<>("#");
         col1.setPrefWidth(75);
-        TableColumn col2 = new TableColumn("Section Code");
+        TableColumn<Object, Object> col2 = new TableColumn<>("Section Code");
         col2.setPrefWidth(165);
-        TableColumn col3 = new TableColumn("Subject Code");
+        TableColumn<Object, Object> col3 = new TableColumn<>("Subject Code");
         col3.setPrefWidth(188);
-        TableColumn col4 = new TableColumn("Subject");
+        TableColumn<Object, Object> col4 = new TableColumn<>("Subject");
         col4.setPrefWidth(164);
-        TableColumn col5 = new TableColumn("Date");
+        TableColumn<Object, Object> col5 = new TableColumn<>("Date");
         col5.setPrefWidth(132);
-        TableColumn col6 = new TableColumn("Time");
+        TableColumn<Object, Object> col6 = new TableColumn<>("Time");
         col6.setPrefWidth(353);
 
         courseColumn.getColumns().addAll(col1, col2, col3, col4, col5, col6);
@@ -161,5 +152,4 @@ public class HelloController {
 
         return table;
     }
-
 }

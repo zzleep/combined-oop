@@ -4,19 +4,21 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.SceneAntialiasing;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
+import javafx.stage.Stage;
+import javafx.scene.SceneAntialiasing;
 
 import java.io.IOException;
 
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Font.loadFont(HelloApplication.class.getResource("/com/example/dashboard_test/media/fonts/MerriweatherSans-Regular.ttf").toExternalForm(), 14);
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        AnchorPane root = fxmlLoader.load(); // Assuming the root element in FXML is a StackPane
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+        AnchorPane root = fxmlLoader.load();
+
+        // Pass the initial stage to the HelloController
+        HelloController controller = fxmlLoader.getController();
+        controller.setHelloStage(stage);
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(root);

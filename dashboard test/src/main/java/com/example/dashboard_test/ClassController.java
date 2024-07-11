@@ -1,6 +1,5 @@
 package com.example.dashboard_test;
 
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,6 +38,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class ClassController {
+    private Stage bookingStage; // To keep track of BookingDialog stage
+
     @FXML
     private void showDialog() {
         Dialog<Void> dialog = new Dialog<>();
@@ -67,27 +68,27 @@ public class ClassController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BookingDialog.fxml"));
             Parent parent = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Course and Subject Booking");
-            stage.setScene(new Scene(parent));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
+            bookingStage = new Stage();
+            bookingStage.setTitle("Course and Subject Booking");
+            bookingStage.setScene(new Scene(parent));
+            bookingStage.initModality(Modality.APPLICATION_MODAL);
+            bookingStage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @FXML
     private HBox contentHBox;
 
     @FXML
     private void handleSidebarButton1() {
-
-
+        // Handle button 1 action
     }
 
     @FXML
     private void handleSidebarButton3() {
-        // Clear existing content
+        // Clear existing content if needed
         contentHBox.getChildren().clear();
 
         // Create new content for Class Schedule button
@@ -103,12 +104,13 @@ public class ClassController {
         Button addScheduleButton = new Button("Add Schedule");
         addScheduleButton.setPrefHeight(37);
         addScheduleButton.setPrefWidth(333);
-        addScheduleButton.setOnAction(event -> showBookingDialog());
+        addScheduleButton.setOnAction(event -> showDialog()); // Open Dialog
         hbox1.getChildren().addAll(label, addScheduleButton);
 
-        TableView table1 = createTableView();
-        TableView table2 = createTableView();
-        TableView table3 = createTableView();
+        // Ensure these tables are initialized only once
+        TableView<Object> table1 = createTableView();
+        TableView<Object> table2 = createTableView();
+        TableView<Object> table3 = createTableView();
 
         // Add new content to vbox
         vbox.getChildren().addAll(hbox1, table1, table2, table3);
@@ -117,25 +119,25 @@ public class ClassController {
         contentHBox.getChildren().add(vbox);
     }
 
-    private TableView createTableView() {
-        TableView table = new TableView();
+    private TableView<Object> createTableView() {
+        TableView<Object> table = new TableView<>();
         table.setPrefHeight(200);
         table.setPrefWidth(1078);
 
-        TableColumn courseColumn = new TableColumn("Bachelor of Science in Industrial Engineering");
+        TableColumn<Object, Object> courseColumn = new TableColumn<>("Bachelor of Science in Industrial Engineering");
         courseColumn.setPrefWidth(1077);
 
-        TableColumn col1 = new TableColumn("#");
+        TableColumn<Object, Object> col1 = new TableColumn<>("#");
         col1.setPrefWidth(75);
-        TableColumn col2 = new TableColumn("Section Code");
+        TableColumn<Object, Object> col2 = new TableColumn<>("Section Code");
         col2.setPrefWidth(165);
-        TableColumn col3 = new TableColumn("Subject Code");
+        TableColumn<Object, Object> col3 = new TableColumn<>("Subject Code");
         col3.setPrefWidth(188);
-        TableColumn col4 = new TableColumn("Subject");
+        TableColumn<Object, Object> col4 = new TableColumn<>("Subject");
         col4.setPrefWidth(164);
-        TableColumn col5 = new TableColumn("Date");
+        TableColumn<Object, Object> col5 = new TableColumn<>("Date");
         col5.setPrefWidth(132);
-        TableColumn col6 = new TableColumn("Time");
+        TableColumn<Object, Object> col6 = new TableColumn<>("Time");
         col6.setPrefWidth(353);
 
         courseColumn.getColumns().addAll(col1, col2, col3, col4, col5, col6);
