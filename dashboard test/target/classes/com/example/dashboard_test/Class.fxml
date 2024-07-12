@@ -35,7 +35,7 @@
             </children>
         </Pane>
         <Label id="profName" layoutX="165.0" layoutY="70.0" onMouseClicked="#showDialog" prefHeight="46.0" prefWidth="1064.0" style="-fx-background-color: White;" textFill="WHITE" />
-        <Text fill="#940404" layoutX="190.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eco, Kimberly A." wrappingWidth="174.9367218017578">
+        <Text fill="#940404" layoutX="190.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" fx:id="userNameText" wrappingWidth="174.9367218017578">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
@@ -232,7 +232,7 @@
                     </font>
                 </Text>
             </children></Pane>
-        <TextField layoutX="237.0" layoutY="857.0" prefHeight="37.0" prefWidth="336.0" />
+        <TextField fx:id="searchField" layoutX="237.0" layoutY="857.0" prefHeight="37.0" prefWidth="336.0" onKeyReleased="#filterOccupancyData"/>
         <Text fill="#5e5a5a" layoutX="175.0" layoutY="882.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:" wrappingWidth="61.59997558593727">
             <font>
                 <Font size="17.0" />
