@@ -35,6 +35,9 @@ public class ClassController {
 
     private Stage helloStage;
 
+    @FXML
+    private TableColumn<Occupancy, Void> deleteColumn;
+
     private Stage bookingStage; // To keep track of BookingDialog stage
     private int currentRoomNumber;
     // A map to store button IDs and corresponding room numbers
@@ -151,6 +154,8 @@ public class ClassController {
         // Assuming getCurrentUserName() is a method that retrieves the current user's name
         String currentUserName = getCurrentUserName();
         userNameText.setText(currentUserName);
+
+        deleteColumn.setCellFactory(col -> new ButtonCell(occupancyTable, new DatabaseHandler()));
 
         // Load data from the database initially
         refreshOccupancyTable();

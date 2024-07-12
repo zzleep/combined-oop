@@ -292,6 +292,17 @@ public class DatabaseHandler {
         }
     }
 
+    public void deleteOccupancy(int occupancyId) {
+        String query = "DELETE FROM occupancy WHERE occupancy_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, occupancyId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle delete error
+        }
+    }
+
     // Close connection method
     public void closeConnection() {
         try {
