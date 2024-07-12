@@ -25,9 +25,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class ClassController {
     private Stage bookingStage; // To keep track of BookingDialog stage
@@ -61,6 +65,8 @@ public class ClassController {
 
     @FXML
     private TableColumn<Occupancy, String> statusColumn;
+
+    private ScheduledExecutorService scheduler;
 
     // Initialize method to populate buttonRoomMap
     @FXML
@@ -121,6 +127,9 @@ public class ClassController {
 
         // Load data from the database initially
         refreshOccupancyTable();
+
+        // Start the scheduler to update room status every hour
+        startScheduler();
     }
 
     // Method to refresh occupancy table data
@@ -130,6 +139,27 @@ public class ClassController {
         ObservableList<Occupancy> data = FXCollections.observableArrayList(occupancyData);
         occupancyTable.setItems(data);
         dbHandler.closeConnection();
+    }
+
+    // Start the scheduler to update room status every hour
+    private void startScheduler() {
+        scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(() -> {
+            // Update room status in the database
+            DatabaseHandler dbHandler = new DatabaseHandler();
+            dbHandler.updateRoomStatus(LocalDate.now()); // Example: Update based on current date
+            dbHandler.closeConnection();
+
+            // Refresh occupancy table after update
+            Platform.runLater(this::refreshOccupancyTable);
+        }, 0, 1, TimeUnit.HOURS); // Run every hour
+    }
+
+    // Stop the scheduler when exiting the application
+    public void stopScheduler() {
+        if (scheduler != null && !scheduler.isShutdown()) {
+            scheduler.shutdown();
+        }
     }
 
     @FXML
@@ -260,6 +290,37 @@ public class ClassController {
         table.getColumns().add(courseColumn);
 
         return table;
+    }
+
+    // Method to update room status based on selected date
+    @FXML
+    private void updateRoomStatus(ActionEvent event) {
+        Dialog<LocalDate> dialog = new Dialog<>();
+        dialog.setTitle("Update Room Status");
+        dialog.setHeaderText("Select a date to update room status:");
+
+        DatePicker datePicker = new DatePicker();
+        dialog.getDialogPane().setContent(datePicker);
+
+        ButtonType updateButtonType = new ButtonType("Update", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(updateButtonType, ButtonType.CANCEL);
+
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == updateButtonType) {
+                return datePicker.getValue();
+            }
+            return null;
+        });
+
+        dialog.showAndWait().ifPresent(selectedDate -> {
+            // Update room status in the database based on selectedDate
+            DatabaseHandler dbHandler = new DatabaseHandler();
+            dbHandler.updateRoomStatus(selectedDate);
+            dbHandler.closeConnection();
+
+            // Refresh occupancy table after update
+            refreshOccupancyTable();
+        });
     }
 
 }

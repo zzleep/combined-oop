@@ -110,6 +110,28 @@ public class DatabaseHandler {
         return -1; // Return -1 if not found or error
     }
 
+    public void updateRoomStatus(LocalDate date) {
+        // SQL query to update rooms status
+        String updateQuery = "UPDATE rooms r " +
+                "JOIN occupancy o ON r.room_id = o.room_id " +
+                "SET r.status = CASE " +
+                "WHEN o.date = ? THEN 'occupied' " +
+                "ELSE 'scheduled' " +
+                "END " +
+                "WHERE r.room_id IN (SELECT DISTINCT room_id FROM occupancy WHERE date = ?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(updateQuery)) {
+            statement.setString(1, date.toString());
+            statement.setString(2, date.toString());
+
+            int rowsAffected = statement.executeUpdate();
+            System.out.println("Rooms status updated successfully. Rows affected: " + rowsAffected);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle update error
+        }
+    }
+
     public boolean insertOccupancy(int scheduleId, int roomId, int userId, String section, String subject,
                                    String startTime, String endTime, LocalDate date) {
         String insertQuery = "INSERT INTO occupancy (schedule_id, room_id, userId, course_section, subject, start_time, end_time, date) " +
@@ -136,7 +158,11 @@ public class DatabaseHandler {
     public List<Occupancy> getOccupancyData() {
         List<Occupancy> occupancies = new ArrayList<>();
         String query = "SELECT o.occupancy_id, r.room_number, u.userName, o.course_section, o.subject, " +
-                "CONCAT(o.start_time, ' - ', o.end_time) AS time, ro.status " +
+                "CONCAT(o.start_time, ' - ', o.end_time) AS time, " +
+                "CASE " +
+                "   WHEN DATE(o.date) = CURDATE() THEN ro.status " + // Today's occupancy
+                "   WHEN DATE(o.date) > CURDATE() THEN 'Scheduled' " + // Future dates
+                "END AS status " +
                 "FROM occupancy o " +
                 "JOIN rooms r ON o.room_id = r.room_id " +
                 "JOIN users u ON o.userId = u.userId " +
