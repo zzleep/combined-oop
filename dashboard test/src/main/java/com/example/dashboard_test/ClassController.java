@@ -1,5 +1,6 @@
 package com.example.dashboard_test;
 
+import javafx.scene.layout.AnchorPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -45,6 +46,9 @@ public class ClassController {
 
     @FXML
     private HBox contentHBox;
+    
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private TableView<Occupancy> occupancyTable;
@@ -165,7 +169,31 @@ public class ClassController {
 
         // Start the scheduler to delete past occupancy records daily
         startDeletePastRecordsScheduler();
+
+        updateRoomButtonsBasedOnStatus();
     }
+
+    private void updateRoomButtonsBasedOnStatus() {
+    Map<Integer, String> roomStatuses = dbHandler.getAllRoomStatuses();
+    roomStatuses.forEach((roomNumber, status) -> {
+        Button roomButton = (Button) anchorPane.lookup("#buttons" + roomNumber); // Assuming your buttons have IDs like button101, button102, etc.
+        if (roomButton != null) {
+            switch (status) {
+                case "Available":
+                    roomButton.setStyle("-fx-background-color: #AAFF00;"); // Green
+                    break;
+                case "Scheduled":
+                    roomButton.setStyle("-fx-background-color: #FDD53E;"); // Yellow
+                    break;
+                case "Occupied":
+                    roomButton.setStyle("-fx-background-color: #FF0000;"); // Red
+                    break;
+                default:
+                    roomButton.setStyle(""); // Default style
+            }
+        }
+    });
+}
 
     // Start the scheduler to update room status every hour
     public void startScheduler() {
