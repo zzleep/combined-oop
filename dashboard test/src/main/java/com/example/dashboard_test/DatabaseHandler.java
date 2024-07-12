@@ -26,11 +26,15 @@ public class DatabaseHandler {
         }
     }
 
-    public List<String> getAllSections() {
+    public List<String> getAllSections(int userId) {
         List<String> sections = new ArrayList<>();
-        String query = "SELECT DISTINCT course_section FROM schedules";
-        try (PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
+        String query = "SELECT DISTINCT s.course_section " +
+                "FROM schedules s " +
+                "JOIN users u ON s.userId = u.userId " +
+                "WHERE u.userId = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 sections.add(resultSet.getString("course_section"));
             }
@@ -41,11 +45,15 @@ public class DatabaseHandler {
         return sections;
     }
 
-    public List<String> getAllSubjects() {
+    public List<String> getAllSubjects(int userId) {
         List<String> subjects = new ArrayList<>();
-        String query = "SELECT DISTINCT subject FROM schedules";
-        try (PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
+        String query = "SELECT DISTINCT s.subject " +
+                "FROM schedules s " +
+                "JOIN users u ON s.userId = u.userId " +
+                "WHERE u.userId = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 subjects.add(resultSet.getString("subject"));
             }

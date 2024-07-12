@@ -40,22 +40,24 @@ public class BookingDialogController {
 
     @FXML
     public void initialize() {
+        int userId = (int) SessionManager.getAttribute("userId"); // Get userId from session
+
         // Initialize combo boxes
-        initializeSectionComboBox();
-        initializeSubjectComboBox();
+        initializeSectionComboBox(userId);
+        initializeSubjectComboBox(userId);
 
         // Initialize time pickers with 24-hour format
         initializeTimePicker(startTimePicker);
         initializeTimePicker(endTimePicker);
     }
 
-    private void initializeSectionComboBox() {
-        List<String> sections = databaseHandler.getAllSections();
+    private void initializeSectionComboBox(int userId) {
+        List<String> sections = databaseHandler.getAllSections(userId);
         sectionComboBox.getItems().addAll(sections);
     }
 
-    private void initializeSubjectComboBox() {
-        List<String> subjects = databaseHandler.getAllSubjects();
+    private void initializeSubjectComboBox(int userId) {
+        List<String> subjects = databaseHandler.getAllSubjects(userId);
         subjectComboBox.getItems().addAll(subjects);
     }
 
