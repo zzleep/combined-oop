@@ -86,6 +86,47 @@ public class DatabaseHandler {
         return subjects;
     }
 
+    public List<String> getAllProfessors(int userId) {
+        List<String> professors = new ArrayList<>();
+        String query = "SELECT DISTINCT u.userName " +
+                "FROM schedules s " +
+                "JOIN users u ON s.userId = u.userId " +
+                "WHERE u.userId = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                professors.add(resultSet.getString("userName"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle query error
+        }
+        return professors;
+    }
+
+    public List<String> getSectionsForProfessor(int userId, String professor) {
+        List<String> sections = new ArrayList<>();
+        String query = "SELECT DISTINCT s.course_section " +
+                "FROM schedules s " +
+                "JOIN users u ON s.userId = u.userId " +
+                "WHERE u.userId = ? AND u.userName = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            statement.setString(2, professor);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                sections.add(resultSet.getString("course_section"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle query error
+        }
+        return sections;
+    }
+
     public int getScheduleId(String section, String subject) {
         String query = "SELECT schedule_id FROM schedules WHERE course_section = ? AND subject = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {

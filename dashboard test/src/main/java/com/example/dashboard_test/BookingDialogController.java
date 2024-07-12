@@ -15,6 +15,9 @@ import java.util.List;
 public class BookingDialogController {
 
     @FXML
+    private ComboBox<String> professorComboBox;
+
+    @FXML
     private ComboBox<String> sectionComboBox;
 
     @FXML
@@ -43,9 +46,17 @@ public class BookingDialogController {
         int userId = (int) SessionManager.getAttribute("userId"); // Get userId from session
 
         // Initialize combo boxes
-        initializeSectionComboBox(userId);
+        initializeProfessorComboBox(userId);
         initializeTimePicker(startTimePicker);
         initializeTimePicker(endTimePicker);
+
+        // Add listener to professorComboBox
+        professorComboBox.setOnAction(event -> {
+            String selectedProfessor = professorComboBox.getSelectionModel().getSelectedItem();
+            if (selectedProfessor != null) {
+                updateSectionComboBox(userId, selectedProfessor);
+            }
+        });
 
         // Add listener to sectionComboBox
         sectionComboBox.setOnAction(event -> {
@@ -56,8 +67,14 @@ public class BookingDialogController {
         });
     }
 
-    private void initializeSectionComboBox(int userId) {
-        List<String> sections = databaseHandler.getAllSections(userId);
+    private void initializeProfessorComboBox(int userId) {
+        List<String> professors = databaseHandler.getAllProfessors(userId);
+        professorComboBox.getItems().addAll(professors);
+    }
+
+    private void updateSectionComboBox(int userId, String selectedProfessor) {
+        sectionComboBox.getItems().clear(); // Clear existing items
+        List<String> sections = databaseHandler.getSectionsForProfessor(userId, selectedProfessor);
         sectionComboBox.getItems().addAll(sections);
     }
 
@@ -103,6 +120,7 @@ public class BookingDialogController {
 
     @FXML
     private void handleSave() {
+        String professor = professorComboBox.getSelectionModel().getSelectedItem();
         String section = sectionComboBox.getSelectionModel().getSelectedItem();
         String subject = subjectComboBox.getSelectionModel().getSelectedItem();
         String startTime = startTimePicker.getSelectionModel().getSelectedItem();
@@ -110,7 +128,7 @@ public class BookingDialogController {
         LocalDate date = datePicker.getValue();
 
         // Validate input
-        if (section == null || subject == null || startTime == null || endTime == null || date == null) {
+        if (professor == null || section == null || subject == null || startTime == null || endTime == null || date == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill in all fields.");
             alert.showAndWait();
             return;
