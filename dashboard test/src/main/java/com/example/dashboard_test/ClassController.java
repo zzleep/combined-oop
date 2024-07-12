@@ -13,7 +13,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
@@ -111,8 +110,6 @@ public class ClassController {
         buttonRoomMap.put("button409", 409);
         buttonRoomMap.put("button410", 410);
 
-
-        // Add more buttons and room numbers as needed
         // Set up the columns in the table
         idColumn.setCellValueFactory(new PropertyValueFactory<>("occupancyId"));
         roomColumn.setCellValueFactory(new PropertyValueFactory<>("room"));
@@ -122,14 +119,17 @@ public class ClassController {
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        // Load data from the database
+        // Load data from the database initially
+        refreshOccupancyTable();
+    }
+
+    // Method to refresh occupancy table data
+    private void refreshOccupancyTable() {
         DatabaseHandler dbHandler = new DatabaseHandler();
         List<Occupancy> occupancyData = dbHandler.getOccupancyData();
-
-        // Add data to the table
         ObservableList<Occupancy> data = FXCollections.observableArrayList(occupancyData);
         occupancyTable.setItems(data);
-        dbHandler.closeConnection(); // Close the connection when done
+        dbHandler.closeConnection();
     }
 
     @FXML
@@ -193,12 +193,14 @@ public class ClassController {
                 bookingStage.setScene(new Scene(parent));
                 bookingStage.initModality(Modality.APPLICATION_MODAL);
                 bookingStage.showAndWait();
+
+                // After dialog closes, refresh occupancy table
+                refreshOccupancyTable();
             });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     private void handleSidebarButton1() {
