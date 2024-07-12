@@ -50,4 +50,15 @@ public class Occupancy {
     public String getStatus() {
         return status.get();
     }
+
+    public boolean matchesSearch(String searchText) {
+        if (searchText == null || searchText.isEmpty()) return true;
+
+        return (room.get() != null && room.get().toLowerCase().contains(searchText)) ||
+                (professor.get() != null && professor.get().toLowerCase().contains(searchText)) ||
+                (courseSection.get() != null && courseSection.get().toLowerCase().contains(searchText)) ||
+                (subject.get() != null && subject.get().toLowerCase().contains(searchText)) ||
+                (time.get() != null && time.get().toLowerCase().contains(searchText)) ||
+                (status.get() != null && status.get().toLowerCase().contains(searchText));
+    }
 }

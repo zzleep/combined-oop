@@ -6,22 +6,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.application.Platform;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
@@ -30,6 +23,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,6 +69,12 @@ public class ClassController {
 
     @FXML
     private Text userNameText;
+
+    @FXML
+    private TextField searchField;
+
+    private ObservableList<Occupancy> originalData = FXCollections.observableArrayList();
+    private ObservableList<Occupancy> filteredData = FXCollections.observableArrayList();
 
     private ScheduledExecutorService roomStatusScheduler;
     private ScheduledExecutorService deletePastRecordsScheduler;
@@ -136,6 +136,18 @@ public class ClassController {
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
+        loadOriginalData();
+        occupancyTable.setItems(originalData);
+
+        // Add listener to searchField
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                occupancyTable.setItems(originalData);
+            } else {
+                filterData(newValue);
+            }
+        });
+
         // Assuming getCurrentUserName() is a method that retrieves the current user's name
         String currentUserName = getCurrentUserName();
         userNameText.setText(currentUserName);
@@ -165,6 +177,22 @@ public class ClassController {
         dbHandler.closeConnection();
     }
 
+    private void loadOriginalData() {
+        List<Occupancy> occupancies = dbHandler.getOccupancyData(); // Fetch occupancy data
+        originalData.clear(); // Clear existing data
+        originalData.addAll(occupancies); // Add all fetched data
+    }
+
+    @FXML
+    private void filterData(String searchText) {
+        filteredData.clear();
+        for (Occupancy occupancy : originalData) {
+            if (occupancy.matchesSearch(searchText.toLowerCase())) {
+                filteredData.add(occupancy);
+            }
+        }
+        occupancyTable.setItems(filteredData);
+    }
 
     // Initialize your DatabaseHandler instance somewhere in your class
     private DatabaseHandler dbHandler = new DatabaseHandler();
@@ -293,6 +321,11 @@ public class ClassController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void filterOccupancyData(KeyEvent event) {
+        filterData(searchField.getText());
     }
 
     @FXML
