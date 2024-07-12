@@ -199,21 +199,17 @@ public class DatabaseHandler {
     }
 
     public void updateRoomStatus(LocalDate currentDate) {
-        // SQL query to update room status
+        // SQL query to update room status based on the specified conditions
         String updateQuery = "UPDATE rooms r " +
-                "LEFT JOIN occupancy o ON r.room_id = o.room_id " +
+                "LEFT JOIN occupancy o ON r.room_id = o.room_id AND o.date >= CURDATE() " +
                 "SET r.status = CASE " +
-                "WHEN o.room_id IS NOT NULL AND o.date >= ? THEN 'occupied' " +
-                "ELSE r.status " + // Keep current status for rooms without bookings today
-                "END " +
-                "WHERE o.date >= ? OR (o.date < ? AND DATE(NOW()) = ?)";
+                "WHEN o.room_id IS NULL THEN 'available' " +
+                "WHEN o.date = CURDATE() THEN 'occupied' " +
+                "WHEN o.date > CURDATE() THEN 'scheduled' " +
+                "ELSE r.status " + // Keep current status if none of the above conditions are met
+                "END";
 
         try (PreparedStatement statement = connection.prepareStatement(updateQuery)) {
-            statement.setString(1, currentDate.toString());
-            statement.setString(2, currentDate.toString());
-            statement.setString(3, currentDate.toString());
-            statement.setString(4, currentDate.toString());
-
             int rowsAffected = statement.executeUpdate();
             System.out.println("Rooms status updated successfully. Rows affected: " + rowsAffected);
         } catch (SQLException e) {
@@ -221,7 +217,6 @@ public class DatabaseHandler {
             // Handle update error
         }
     }
-
 
     public boolean insertOccupancy(int scheduleId, int roomId, int userId, String section, String subject,
                                    String startTime, String endTime, LocalDate date) {
