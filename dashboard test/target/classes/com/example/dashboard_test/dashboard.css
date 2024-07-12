@@ -54,11 +54,18 @@
 
 }
 
-#sidebar_btn1:hover, #sidebar_btn2:hover, #sidebar_btn3:hover {
+#sidebar_btn1:hover, #sidebar_btn2:hover {
     -fx-background-color: #800201;
     -fx-text-fill: white;
     -fx-background-radius: 5 0 0 5;
-        -fx-background-insets: 0 0 0 5;
+     -fx-background-insets: 0 0 0 5;
+}
+
+#sidebar_btn1 {
+	-fx-background-color: #800201;
+    -fx-text-fill: white;
+    -fx-background-radius: 5 0 0 5;
+    -fx-background-insets: 0 0 0 5;
 }
 
 #container{

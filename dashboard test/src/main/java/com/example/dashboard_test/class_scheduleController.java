@@ -36,8 +36,7 @@ public class class_scheduleController {
 
             // Create a new scene with specified dimensions and add the scrollPane to it
             Scene scene = new Scene(scrollPane, 1280, 720); // Set desired width and height here
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            Stage stage = new Stage();
+            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());            Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Class Window"); // Optionally set a title for the new window
             stage.show();
@@ -61,4 +60,34 @@ public class class_scheduleController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleSidebarButton1() {
+        try {
+            // Close the current helloStage
+            if (helloStage != null) {
+                helloStage.close();
+            }
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+            Parent parent = fxmlLoader.load();
+
+            // Wrap the parent in a ScrollPane
+            ScrollPane scrollPane = new ScrollPane(parent);
+            scrollPane.setPannable(true);
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+            // Create a new scene with specified dimensions and add the scrollPane to it
+            Scene scene = new Scene(scrollPane, 1280, 720); // Set desired width and height here
+            scene.getStylesheets().add(getClass().getResource("dashboard.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Class Window"); // Optionally set a title for the new window
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

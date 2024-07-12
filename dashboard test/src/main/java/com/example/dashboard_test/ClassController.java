@@ -352,8 +352,7 @@ public class ClassController {
 
             // Create a new scene with specified dimensions and add the scrollPane to it
             Scene scene = new Scene(scrollPane, 1280, 720); // Set desired width and height here
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            Stage stage = new Stage();
+            scene.getStylesheets().add(getClass().getResource("class_schedule.css").toExternalForm());            Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Class Window"); // Optionally set a title for the new window
             stage.show();
