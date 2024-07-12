@@ -96,20 +96,6 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
-    private void launchHelloApplication() {
-        // Dispose of the current Main frame
-        dispose();
-
-        // Start HelloApplication on the Event Dispatch Thread
-        SwingUtilities.invokeLater(() -> {
-            try {
-                HelloApplication.launch(HelloApplication.class);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

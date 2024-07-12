@@ -11,9 +11,9 @@ import com.example.dashboard_test.HelloApplication;
 
 import com.example.dashboard_test.SessionManager;
 import net.miginfocom.swing.MigLayout;
-import com.raven.swing.Button;
-import com.raven.swing.MyPasswordField;
-import com.raven.swing.MyTextField;
+import com.example.dashboard_test.raven.swing.Button;
+import com.example.dashboard_test.raven.swing.MyPasswordField;
+import com.example.dashboard_test.raven.swing.MyTextField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

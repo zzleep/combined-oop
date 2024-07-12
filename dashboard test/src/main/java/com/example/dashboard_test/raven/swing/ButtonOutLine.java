@@ -1,4 +1,4 @@
-package com.raven.swing;
+package com.example.dashboard_test.raven.swing;
 
 import java.awt.Color;
 import java.awt.Cursor;
