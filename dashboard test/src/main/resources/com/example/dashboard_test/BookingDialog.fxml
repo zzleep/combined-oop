@@ -16,7 +16,7 @@
 
     <!-- Professor Selection -->
     <HBox spacing="10">
-        <Label text="Section:"/>
+        <Label text="Professor:"/>
         <ComboBox fx:id="professorComboBox" promptText="Select Professor"/>
     </HBox>
 

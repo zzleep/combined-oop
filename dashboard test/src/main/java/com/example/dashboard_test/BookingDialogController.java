@@ -43,14 +43,14 @@ public class BookingDialogController {
 
     @FXML
     public void initialize() {
-        int userId = (int) SessionManager.getAttribute("userId"); // Get userId from session
+        int userId = (int) SessionManager.getAttribute("userId"); // Ensure this is correctly fetching the userId
 
         // Initialize combo boxes
         initializeProfessorComboBox(userId);
         initializeTimePicker(startTimePicker);
         initializeTimePicker(endTimePicker);
 
-        // Add listener to professorComboBox
+        // Add listener to professorComboBox here to ensure it's not null
         professorComboBox.setOnAction(event -> {
             String selectedProfessor = professorComboBox.getSelectionModel().getSelectedItem();
             if (selectedProfessor != null) {
@@ -67,10 +67,16 @@ public class BookingDialogController {
         });
     }
 
-    private void initializeProfessorComboBox(int userId) {
+private void initializeProfessorComboBox(int userId) {
+    if (professorComboBox != null && databaseHandler != null) {
         List<String> professors = databaseHandler.getAllProfessors(userId);
-        professorComboBox.getItems().addAll(professors);
+        if (professors != null) { // Ensure professors is not null
+            professorComboBox.getItems().addAll(professors);
+        }
+    } else {
+        System.out.println("professorComboBox or databaseHandler is not initialized.");
     }
+}
 
     private void updateSectionComboBox(int userId, String selectedProfessor) {
         sectionComboBox.getItems().clear(); // Clear existing items
