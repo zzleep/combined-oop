@@ -125,6 +125,37 @@ public class DatabaseHandler {
         }
     }
 
+    public List<Occupancy> getOccupancyData() {
+        List<Occupancy> occupancies = new ArrayList<>();
+        String query = "SELECT o.occupancy_id, r.room_number, u.userName, o.course_section, o.subject, " +
+                "CONCAT(o.start_time, ' - ', o.end_time) AS time, ro.status " +
+                "FROM occupancy o " +
+                "JOIN rooms r ON o.room_id = r.room_id " +
+                "JOIN users u ON o.userId = u.userId " +
+                "JOIN rooms ro ON o.room_id = ro.room_id"; // Adjust the joins as necessary
+
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int occupancyId = resultSet.getInt("occupancy_id");
+                String room = resultSet.getString("room_number");
+                String professor = resultSet.getString("userName");
+                String courseSection = resultSet.getString("course_section");
+                String subject = resultSet.getString("subject");
+                String time = resultSet.getString("time");
+                String status = resultSet.getString("status");
+
+                Occupancy occupancy = new Occupancy(occupancyId, room, professor, courseSection, subject, time, status);
+                occupancies.add(occupancy);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle query error
+        }
+        return occupancies;
+    }
+
     // Close connection method
     public void closeConnection() {
         try {

@@ -1,5 +1,7 @@
 package com.example.dashboard_test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +14,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -24,6 +27,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ClassController {
@@ -34,6 +38,30 @@ public class ClassController {
 
     @FXML
     private HBox contentHBox;
+
+    @FXML
+    private TableView<Occupancy> occupancyTable;
+
+    @FXML
+    private TableColumn<Occupancy, Integer> idColumn;
+
+    @FXML
+    private TableColumn<Occupancy, String> roomColumn;
+
+    @FXML
+    private TableColumn<Occupancy, String> professorColumn;
+
+    @FXML
+    private TableColumn<Occupancy, String> courseSectionColumn;
+
+    @FXML
+    private TableColumn<Occupancy, String> subjectColumn;
+
+    @FXML
+    private TableColumn<Occupancy, String> timeColumn;
+
+    @FXML
+    private TableColumn<Occupancy, String> statusColumn;
 
     // Initialize method to populate buttonRoomMap
     @FXML
@@ -85,6 +113,23 @@ public class ClassController {
 
 
         // Add more buttons and room numbers as needed
+        // Set up the columns in the table
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("occupancyId"));
+        roomColumn.setCellValueFactory(new PropertyValueFactory<>("room"));
+        professorColumn.setCellValueFactory(new PropertyValueFactory<>("professor"));
+        courseSectionColumn.setCellValueFactory(new PropertyValueFactory<>("courseSection"));
+        subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        // Load data from the database
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        List<Occupancy> occupancyData = dbHandler.getOccupancyData();
+
+        // Add data to the table
+        ObservableList<Occupancy> data = FXCollections.observableArrayList(occupancyData);
+        occupancyTable.setItems(data);
+        dbHandler.closeConnection(); // Close the connection when done
     }
 
     @FXML

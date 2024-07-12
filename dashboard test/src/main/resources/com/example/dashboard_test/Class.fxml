@@ -238,15 +238,15 @@
                 <Font size="17.0" />
             </font>
         </Text>
-        <TableView id="table" layoutX="168.0" layoutY="920.0" prefHeight="403.0" prefWidth="1064.0">
+        <TableView fx:id="occupancyTable" layoutX="168.0" layoutY="920.0" prefHeight="403.0" prefWidth="1064.0">
             <columns>
-                <TableColumn id="header-col" prefWidth="99.19998168945312" text="#" />
-                <TableColumn id="header-col" prefWidth="100.00003051757812" text="Room" />
-                <TableColumn id="header-col" prefWidth="194.39993286132812" text="Professor" />
-                <TableColumn id="header-col" prefWidth="194.4000244140625" text="Course &amp; Section" />
-                <TableColumn id="header-col" prefWidth="174.39996337890625" text="Subject" />
-                <TableColumn id="header-col" prefWidth="150.4000244140625" text="Time" />
-                <TableColumn id="header-col" prefWidth="176.800048828125" text="Status" />
+                <TableColumn fx:id="idColumn" prefWidth="99.19998168945312" text="#" />
+                <TableColumn fx:id="roomColumn" prefWidth="100.00003051757812" text="Room" />
+                <TableColumn fx:id="professorColumn" prefWidth="194.39993286132812" text="Professor" />
+                <TableColumn fx:id="courseSectionColumn" prefWidth="194.4000244140625" text="Course &amp; Section" />
+                <TableColumn fx:id="subjectColumn" prefWidth="174.39996337890625" text="Subject" />
+                <TableColumn fx:id="timeColumn" prefWidth="150.4000244140625" text="Time" />
+                <TableColumn fx:id="statusColumn" prefWidth="176.800048828125" text="Status" />
             </columns>
         </TableView>
     </children>
