@@ -32,6 +32,7 @@ public class DatabaseHandler {
                 "FROM schedules s " +
                 "JOIN users u ON s.userId = u.userId " +
                 "WHERE u.userId = ?";
+
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
@@ -43,6 +44,27 @@ public class DatabaseHandler {
             // Handle query error
         }
         return sections;
+    }
+
+    public List<String> getSubjectsForSection(int userId, String section) {
+        List<String> subjects = new ArrayList<>();
+        String query = "SELECT DISTINCT s.subject " +
+                "FROM schedules s " +
+                "JOIN users u ON s.userId = u.userId " +
+                "WHERE u.userId = ? AND s.course_section = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            statement.setString(2, section);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                subjects.add(resultSet.getString("subject"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle query error
+        }
+        return subjects;
     }
 
     public List<String> getAllSubjects(int userId) {

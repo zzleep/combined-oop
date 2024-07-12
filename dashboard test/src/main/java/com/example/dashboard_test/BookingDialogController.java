@@ -44,11 +44,16 @@ public class BookingDialogController {
 
         // Initialize combo boxes
         initializeSectionComboBox(userId);
-        initializeSubjectComboBox(userId);
-
-        // Initialize time pickers with 24-hour format
         initializeTimePicker(startTimePicker);
         initializeTimePicker(endTimePicker);
+
+        // Add listener to sectionComboBox
+        sectionComboBox.setOnAction(event -> {
+            String selectedSection = sectionComboBox.getSelectionModel().getSelectedItem();
+            if (selectedSection != null) {
+                updateSubjectComboBox(userId, selectedSection);
+            }
+        });
     }
 
     private void initializeSectionComboBox(int userId) {
@@ -56,8 +61,9 @@ public class BookingDialogController {
         sectionComboBox.getItems().addAll(sections);
     }
 
-    private void initializeSubjectComboBox(int userId) {
-        List<String> subjects = databaseHandler.getAllSubjects(userId);
+    private void updateSubjectComboBox(int userId, String selectedSection) {
+        subjectComboBox.getItems().clear(); // Clear existing items
+        List<String> subjects = databaseHandler.getSubjectsForSection(userId, selectedSection);
         subjectComboBox.getItems().addAll(subjects);
     }
 
