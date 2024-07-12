@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseHandler {
 
@@ -86,24 +88,32 @@ public class DatabaseHandler {
         return subjects;
     }
 
-    public List<String> getAllProfessors(int userId) {
-        List<String> professors = new ArrayList<>();
-        String query = "SELECT DISTINCT u.userName " +
-                "FROM schedules s " +
-                "JOIN users u ON s.userId = u.userId " +
-                "WHERE u.userId = ?";
-
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, userId);
-            ResultSet resultSet = statement.executeQuery();
+    public Map<String, Integer> getAllProfessorsWithIds() {
+        Map<String, Integer> professors = new HashMap<>();
+        String query = "SELECT userId, userName FROM users WHERE userRole = 'Professor'";
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                professors.add(resultSet.getString("userName"));
+                professors.put(resultSet.getString("userName"), resultSet.getInt("userId"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle query error
         }
         return professors;
+    }
+
+    public int getProfessorUserId(String professorName) {
+        String query = "SELECT userId FROM users WHERE userName = ? AND userRole = 'Professor'";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, professorName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("userId");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Return -1 if not found or error
     }
 
     public List<String> getSectionsForProfessor(int userId, String professor) {

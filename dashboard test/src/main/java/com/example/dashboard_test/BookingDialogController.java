@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 public class BookingDialogController {
 
@@ -46,7 +47,7 @@ public class BookingDialogController {
         int userId = (int) SessionManager.getAttribute("userId"); // Ensure this is correctly fetching the userId
 
         // Initialize combo boxes
-        initializeProfessorComboBox(userId);
+        initializeProfessorComboBox();
         initializeTimePicker(startTimePicker);
         initializeTimePicker(endTimePicker);
 
@@ -54,7 +55,7 @@ public class BookingDialogController {
         professorComboBox.setOnAction(event -> {
             String selectedProfessor = professorComboBox.getSelectionModel().getSelectedItem();
             if (selectedProfessor != null) {
-                updateSectionComboBox(userId, selectedProfessor);
+                updateSectionComboBox(selectedProfessor);
             }
         });
 
@@ -62,30 +63,33 @@ public class BookingDialogController {
         sectionComboBox.setOnAction(event -> {
             String selectedSection = sectionComboBox.getSelectionModel().getSelectedItem();
             if (selectedSection != null) {
-                updateSubjectComboBox(userId, selectedSection);
+                updateSubjectComboBox(selectedSection);
             }
         });
     }
 
-private void initializeProfessorComboBox(int userId) {
-    if (professorComboBox != null && databaseHandler != null) {
-        List<String> professors = databaseHandler.getAllProfessors(userId);
-        if (professors != null) { // Ensure professors is not null
-            professorComboBox.getItems().addAll(professors);
+    // Modify this method to handle fetching of professor's userId along with their name
+    private void initializeProfessorComboBox() {
+        Map<String, Integer> professorsData = databaseHandler.getAllProfessorsWithIds();
+        if (professorsData != null) {
+            professorComboBox.getItems().addAll(professorsData.keySet());
         }
-    } else {
-        System.out.println("professorComboBox or databaseHandler is not initialized.");
-    }
-}
-
-    private void updateSectionComboBox(int userId, String selectedProfessor) {
-        sectionComboBox.getItems().clear(); // Clear existing items
-        List<String> sections = databaseHandler.getSectionsForProfessor(userId, selectedProfessor);
-        sectionComboBox.getItems().addAll(sections);
     }
 
-    private void updateSubjectComboBox(int userId, String selectedSection) {
-        subjectComboBox.getItems().clear(); // Clear existing items
+    private void updateSectionComboBox(String selectedProfessor) {
+        sectionComboBox.getItems().clear();
+        // Retrieve the userId within the method
+        int userId = databaseHandler.getProfessorUserId(selectedProfessor);
+        if (userId != -1) {
+            List<String> sections = databaseHandler.getSectionsForProfessor(userId, selectedProfessor);
+            sectionComboBox.getItems().addAll(sections);
+        }
+    }
+
+    // Adjusted to use professor's userId
+    private void updateSubjectComboBox(String selectedSection) {
+        subjectComboBox.getItems().clear();
+        int userId = databaseHandler.getProfessorUserId(professorComboBox.getSelectionModel().getSelectedItem());
         List<String> subjects = databaseHandler.getSubjectsForSection(userId, selectedSection);
         subjectComboBox.getItems().addAll(subjects);
     }
