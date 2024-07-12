@@ -66,7 +66,8 @@ public class ClassController {
     @FXML
     private TableColumn<Occupancy, String> statusColumn;
 
-    private ScheduledExecutorService scheduler;
+    private ScheduledExecutorService roomStatusScheduler;
+    private ScheduledExecutorService deletePastRecordsScheduler;
 
     // Initialize method to populate buttonRoomMap
     @FXML
@@ -129,7 +130,16 @@ public class ClassController {
         refreshOccupancyTable();
 
         // Start the scheduler to update room status every hour
-        startScheduler();
+        startRoomStatusScheduler();
+
+        // Start the scheduler to delete past occupancy records daily
+        startDeletePastRecordsScheduler();
+    }
+
+    // Start the scheduler to update room status every hour
+    public void startScheduler() {
+        startRoomStatusScheduler();
+        startDeletePastRecordsScheduler();
     }
 
     // Method to refresh occupancy table data
@@ -142,23 +152,37 @@ public class ClassController {
     }
 
     // Start the scheduler to update room status every hour
-    private void startScheduler() {
-        scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(() -> {
+    private void startRoomStatusScheduler() {
+        roomStatusScheduler = Executors.newScheduledThreadPool(1);
+        roomStatusScheduler.scheduleAtFixedRate(() -> {
             // Update room status in the database
             DatabaseHandler dbHandler = new DatabaseHandler();
             dbHandler.updateRoomStatus(LocalDate.now()); // Example: Update based on current date
             dbHandler.closeConnection();
 
             // Refresh occupancy table after update
-            Platform.runLater(this::refreshOccupancyTable);
+            refreshOccupancyTable();
         }, 0, 1, TimeUnit.HOURS); // Run every hour
     }
 
-    // Stop the scheduler when exiting the application
-    public void stopScheduler() {
-        if (scheduler != null && !scheduler.isShutdown()) {
-            scheduler.shutdown();
+    // Start the scheduler to delete past occupancy records daily
+    private void startDeletePastRecordsScheduler() {
+        deletePastRecordsScheduler = Executors.newScheduledThreadPool(1);
+        deletePastRecordsScheduler.scheduleAtFixedRate(() -> {
+            // Delete past occupancy records in the database
+            DatabaseHandler dbHandler = new DatabaseHandler();
+            dbHandler.deletePastOccupancies();
+            dbHandler.closeConnection();
+        }, 0, 1, TimeUnit.DAYS); // Run every day
+    }
+
+    // Stop both schedulers when exiting the application
+    public void stopSchedulers() {
+        if (roomStatusScheduler != null && !roomStatusScheduler.isShutdown()) {
+            roomStatusScheduler.shutdown();
+        }
+        if (deletePastRecordsScheduler != null && !deletePastRecordsScheduler.isShutdown()) {
+            deletePastRecordsScheduler.shutdown();
         }
     }
 
@@ -175,6 +199,7 @@ public class ClassController {
             showDialog(roomNumber);
         }
     }
+
 
     @FXML
     public void showDialog(ActionEvent actionEvent) {

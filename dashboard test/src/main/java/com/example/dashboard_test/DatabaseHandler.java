@@ -186,6 +186,19 @@ public class DatabaseHandler {
         }
         return occupancies;
     }
+    public void deletePastOccupancies() {
+        String deleteQuery = "DELETE FROM occupancy WHERE date < ?";
+        LocalDate currentDate = LocalDate.now();
+
+        try (PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+            statement.setString(1, currentDate.toString());
+            int rowsAffected = statement.executeUpdate();
+            System.out.println(rowsAffected + " records deleted.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle delete error
+        }
+    }
 
     // Close connection method
     public void closeConnection() {
