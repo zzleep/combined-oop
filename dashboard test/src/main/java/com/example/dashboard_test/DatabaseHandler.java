@@ -158,15 +158,12 @@ public class DatabaseHandler {
     public List<Occupancy> getOccupancyData() {
         List<Occupancy> occupancies = new ArrayList<>();
         String query = "SELECT o.occupancy_id, r.room_number, u.userName, o.course_section, o.subject, " +
-                "CONCAT(o.start_time, ' - ', o.end_time) AS time, " +
-                "CASE " +
-                "   WHEN DATE(o.date) = CURDATE() THEN ro.status " + // Today's occupancy
-                "   WHEN DATE(o.date) > CURDATE() THEN 'Scheduled' " + // Future dates
-                "END AS status " +
+                "CONCAT(o.start_time, ' - ', o.end_time) AS time, ro.status " +
                 "FROM occupancy o " +
                 "JOIN rooms r ON o.room_id = r.room_id " +
                 "JOIN users u ON o.userId = u.userId " +
-                "JOIN rooms ro ON o.room_id = ro.room_id"; // Adjust the joins as necessary
+                "JOIN rooms ro ON o.room_id = ro.room_id " +
+                "ORDER BY o.date"; // Assuming 'date' is the column name in your database
 
         try (PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
