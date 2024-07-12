@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+
 import com.example.dashboard_test.HelloApplication;
 
 import com.example.dashboard_test.SessionManager;
@@ -242,12 +243,22 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
         sendEmailButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String email = txtEmailForgotPass.getText().trim(); // Use txtEmailForgotPass
-
-                // Implement email sending logic for password reset
-                // Example: Send email with password reset link
-                // Placeholder implementation
-                JOptionPane.showMessageDialog(null, "Password reset link sent to: " + email, "Success", JOptionPane.INFORMATION_MESSAGE);
+                String email = txtEmailForgotPass.getText().trim();
+                try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/oop_main", "root", "")) {
+                    String query = "SELECT COUNT(*) AS count FROM users WHERE userEmail = ?";
+                    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+                        pstmt.setString(1, email);
+                        ResultSet rs = pstmt.executeQuery();
+                        if (rs.next() && rs.getInt("count") > 0) {
+                            // Email exists, proceed to change password
+                            showCreateNewPass(true);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Email does not exist", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         forgotPass.add(sendEmailButton, "w 40%, h 40");
