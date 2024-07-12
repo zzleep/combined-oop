@@ -15,6 +15,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -34,6 +35,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ClassController {
+
     private Stage bookingStage; // To keep track of BookingDialog stage
     private int currentRoomNumber;
     // A map to store button IDs and corresponding room numbers
@@ -65,6 +67,9 @@ public class ClassController {
 
     @FXML
     private TableColumn<Occupancy, String> statusColumn;
+
+    @FXML
+    private Text userNameText;
 
     private ScheduledExecutorService roomStatusScheduler;
     private ScheduledExecutorService deletePastRecordsScheduler;
@@ -125,6 +130,10 @@ public class ClassController {
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        // Assuming getCurrentUserName() is a method that retrieves the current user's name
+        String currentUserName = getCurrentUserName();
+        userNameText.setText(currentUserName);
 
         // Load data from the database initially
         refreshOccupancyTable();
@@ -199,6 +208,26 @@ public class ClassController {
             // For example, open the booking dialog for the specific room
             showDialog(roomNumber);
         }
+    }
+
+    private String getCurrentUserName() {
+        String userName = "User"; // Default name if user ID does not match
+        try {
+            // Retrieve the current userId from the session
+            Object userIdObj = SessionManager.getAttribute("userId");
+            if (userIdObj != null) {
+                int currentUserId = Integer.parseInt(userIdObj.toString());
+
+                // Use DatabaseHandler to query the database
+                DatabaseHandler dbHandler = new DatabaseHandler();
+                userName = dbHandler.getUserNameById(currentUserId);
+
+                dbHandler.closeConnection();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userName;
     }
 
 

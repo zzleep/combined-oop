@@ -168,6 +168,21 @@ public class DatabaseHandler {
         return -1; // Return -1 if not found or error
     }
 
+    public String getUserNameById(int userId) {
+        String query = "SELECT userName FROM users WHERE userId = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("userName");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "User"; // Default name if user ID does not match or an error occurs
+    }
+
     public int getRoomId(int roomNumber) {
         String query = "SELECT room_id FROM rooms WHERE room_number = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
