@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1136.0" prefWidth="1259.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dashboard_test.class_scheduleController">   <children>
+    <Pane fx:id="sidebar" layoutX="-4.0" layoutY="53.0" prefHeight="606.0" prefWidth="150.0">
+        <children>
+            <Button fx:id="sidebar_btn1" layoutX="1.0" layoutY="36.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Home" />
+            <Button fx:id="sidebar_btn2" layoutX="1.0" layoutY="73.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Rooms" />
+            <Button fx:id="sidebar_btn3" layoutX="1.0" layoutY="110.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Class Schedule" />
+        </children>
+    </Pane>
+    <Pane fx:id="nav" layoutX="-4.0" layoutY="-1.0" prefHeight="54.0" prefWidth="1250.0">
+        <children>
+            <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="14.0" layoutY="5.0">
+                <image>
+                    <Image url="@../dashboard_test/media/puplogo.png" />
+                </image>
+            </ImageView>
+            <Label fx:id="nv1" layoutX="59.0" layoutY="9.0" prefHeight="30.0" prefWidth="72.0" text="PUP-SRC" />
+        </children>
+    </Pane>
+    <Pane fx:id="mainPane" layoutX="146.0" layoutY="61.0" prefHeight="606.0" prefWidth="1059.0" />
+    <HBox prefHeight="100.0" prefWidth="200.0" />
+    <HBox layoutX="149.0" layoutY="53.0" prefHeight="37.0" prefWidth="1078.0">
+        <children>
+            <Label prefHeight="37.0" prefWidth="1092.0" text="ECO, KIMBERLY A." textFill="RED">
+            </Label>
+            <Button fx:id="adsched" onAction="#showBookingDialog" mnemonicParsing="false" prefHeight="37.0" prefWidth="333.0" text="Add Schedule" />
+        </children>
+    </HBox>
+    <TableView fx:id="table" layoutX="149.0" layoutY="100.0" prefHeight="200.0" prefWidth="1078.0">
+        <columns>
+            <TableColumn id="course" prefWidth="1077.0" text="Bachelor of Science in Industrial Engineering">
+                <columns>
+                    <TableColumn id="header-col" prefWidth="75.0" text="#" />
+                    <TableColumn id="header-col" prefWidth="165.0" text="Section Code" />
+                    <TableColumn id="header-col" prefWidth="188.0" text="Subject Code" />
+                    <TableColumn id="header-col" prefWidth="164.0" text="Subject" />
+                    <TableColumn id="header-col" prefWidth="132.0" text="Date" />
+                    <TableColumn id="header-col" prefWidth="353.0" text="Time" />
+                </columns>
+            </TableColumn>
+        </columns>
+    </TableView>
+    <TableView fx:id="table1" layoutX="149.0" layoutY="306.0" prefHeight="200.0" prefWidth="1078.0">
+        <columns>
+            <TableColumn id="course" prefWidth="1077.0" text="Bachelor of Science in Industrial Engineering">
+                <columns>
+                    <TableColumn id="header-col" prefWidth="75.0" text="#" />
+                    <TableColumn id="header-col" prefWidth="165.0" text="Section Code" />
+                    <TableColumn id="header-col" prefWidth="188.0" text="Subject Code" />
+                    <TableColumn id="header-col" prefWidth="164.0" text="Subject" />
+                    <TableColumn id="header-col" prefWidth="132.0" text="Date" />
+                    <TableColumn id="header-col" prefWidth="353.0" text="Time" />
+                </columns>
+            </TableColumn>
+        </columns>
+    </TableView>
+    <TableView fx:id="table2" layoutX="149.0" layoutY="515.0" prefHeight="200.0" prefWidth="1078.0">
+        <columns>
+            <TableColumn id="course" prefWidth="1077.0" text="Bachelor of Science in Industrial Engineering">
+                <columns>
+                    <TableColumn id="header-col" prefWidth="75.0" text="#" />
+                    <TableColumn id="header-col" prefWidth="165.0" text="Section Code" />
+                    <TableColumn id="header-col" prefWidth="188.0" text="Subject Code" />
+                    <TableColumn id="header-col" prefWidth="164.0" text="Subject" />
+                    <TableColumn id="header-col" prefWidth="132.0" text="Date" />
+                    <TableColumn id="header-col" prefWidth="353.0" text="Time" />
+                </columns>
+            </TableColumn>
+        </columns>
+    </TableView>
+</children>
+</AnchorPane>

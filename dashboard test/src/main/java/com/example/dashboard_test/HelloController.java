@@ -96,34 +96,31 @@ public class HelloController {
 
     @FXML
     private void handleSidebarButton3() {
-        // Clear existing content
-        contentHBox.getChildren().clear();
+        try {
+            // Close the current helloStage
+            if (helloStage != null) {
+                helloStage.close();
+            }
 
-        // Create new content for Class Schedule button
-        VBox vbox = new VBox();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("class_schedule.fxml"));
+            Parent parent = fxmlLoader.load();
 
-        HBox hbox1 = new HBox();
-        hbox1.setPrefHeight(37);
-        hbox1.setPrefWidth(1078);
-        Label label = new Label("ECO, KIMBERLY A.");
-        label.setTextFill(javafx.scene.paint.Color.RED);
-        label.setPrefHeight(37);
-        label.setPrefWidth(1092);
-        Button addScheduleButton = new Button("Add Schedule");
-        addScheduleButton.setPrefHeight(37);
-        addScheduleButton.setPrefWidth(333);
-        addScheduleButton.setOnAction(event -> showBookingDialog());
-        hbox1.getChildren().addAll(label, addScheduleButton);
+            // Wrap the parent in a ScrollPane
+            ScrollPane scrollPane = new ScrollPane(parent);
+            scrollPane.setPannable(true);
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        TableView<Object> table1 = createTableView();
-        TableView<Object> table2 = createTableView();
-        TableView<Object> table3 = createTableView();
-
-        // Add new content to vbox
-        vbox.getChildren().addAll(hbox1, table1, table2, table3);
-
-        // Add vbox to contentHBox
-        contentHBox.getChildren().add(vbox);
+            // Create a new scene with specified dimensions and add the scrollPane to it
+            Scene scene = new Scene(scrollPane, 1280, 720); // Set desired width and height here
+            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Class Window"); // Optionally set a title for the new window
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private TableView<Object> createTableView() {

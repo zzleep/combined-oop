@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dashboard_test.ScheduleDialogController">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+
+    <!-- Section Code Input -->
+    <HBox spacing="10">
+        <Label text="Section Code:" />
+        <TextField fx:id="sectionCodeField" promptText="Enter Section Code" />
+    </HBox>
+
+    <!-- Subject Code Input -->
+    <HBox spacing="10">
+        <Label text="Subject Code:" />
+        <TextField fx:id="subjectCodeField" promptText="Enter Subject Code" />
+    </HBox>
+
+    <!-- Subject Name Input -->
+    <HBox spacing="10">
+        <Label text="Subject Name:" />
+        <TextField fx:id="subjectNameField" prefHeight="26.0" prefWidth="147.0" promptText="Enter Subject Name" />
+    </HBox>
+
+    <!-- Select Date Dropdown -->
+    <HBox spacing="10">
+        <Label text="Select Date:" />
+        <ComboBox fx:id="dateComboBox" prefHeight="26.0" prefWidth="141.0" />
+    </HBox>
+
+    <!-- Start Time Picker -->
+    <HBox spacing="10">
+        <Label text="Start Time:" />
+        <TextField fx:id="startTimeField" promptText="HH:mm" />
+    </HBox>
+
+    <!-- End Time Picker -->
+    <HBox spacing="10">
+        <Label text="End Time:" />
+        <TextField fx:id="endTimeField" prefHeight="26.0" prefWidth="157.0" promptText="HH:mm" />
+    </HBox>
+</VBox>

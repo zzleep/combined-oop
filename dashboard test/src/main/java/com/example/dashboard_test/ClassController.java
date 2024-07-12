@@ -24,6 +24,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -35,6 +38,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ClassController {
+
+    private Stage helloStage;
 
     private Stage bookingStage; // To keep track of BookingDialog stage
     private int currentRoomNumber;
@@ -297,32 +302,32 @@ public class ClassController {
 
     @FXML
     private void handleSidebarButton3() {
-        contentHBox.getChildren().clear();
+        try {
+            // Close the current helloStage
+            if (helloStage != null) {
+                helloStage.close();
+            }
 
-        VBox vbox = new VBox();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("class_schedule.fxml"));
+            Parent parent = fxmlLoader.load();
 
-        HBox hbox1 = new HBox();
-        hbox1.setPrefHeight(37);
-        hbox1.setPrefWidth(1078);
-        Label label = new Label("ECO, KIMBERLY A.");
-        label.setTextFill(javafx.scene.paint.Color.RED);
-        label.setPrefHeight(37);
-        label.setPrefWidth(1092);
-        Button addScheduleButton = new Button("Add Schedule");
-        addScheduleButton.setPrefHeight(37);
-        addScheduleButton.setPrefWidth(333);
-        addScheduleButton.setOnAction(event -> showDialog(0)); // Open Dialog
-        hbox1.getChildren().addAll(label, addScheduleButton);
+            // Wrap the parent in a ScrollPane
+            ScrollPane scrollPane = new ScrollPane(parent);
+            scrollPane.setPannable(true);
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        TableView<Object> table1 = createTableView();
-        TableView<Object> table2 = createTableView();
-        TableView<Object> table3 = createTableView();
-
-        vbox.getChildren().addAll(hbox1, table1, table2, table3);
-
-        contentHBox.getChildren().add(vbox);
+            // Create a new scene with specified dimensions and add the scrollPane to it
+            Scene scene = new Scene(scrollPane, 1280, 720); // Set desired width and height here
+            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Class Window"); // Optionally set a title for the new window
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
     private TableView<Object> createTableView() {
         TableView<Object> table = new TableView<>();
         table.setPrefHeight(200);

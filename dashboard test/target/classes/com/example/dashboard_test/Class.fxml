@@ -35,7 +35,7 @@
             </children>
         </Pane>
         <Label id="profName" layoutX="165.0" layoutY="70.0" onMouseClicked="#showDialog" prefHeight="46.0" prefWidth="1064.0" style="-fx-background-color: White;" textFill="WHITE" />
-        <Text fill="#940404" layoutX="190.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eco, Kimberly A." wrappingWidth="174.9367218017578">
+        <Text fx:id="userNameText" fill="#940404" layoutX="190.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eco, Kimberly A." wrappingWidth="174.9367218017578">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
