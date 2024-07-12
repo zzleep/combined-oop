@@ -110,19 +110,21 @@ public class DatabaseHandler {
         return -1; // Return -1 if not found or error
     }
 
-    public void updateRoomStatus(LocalDate date) {
-        // SQL query to update rooms status
+    public void updateRoomStatus(LocalDate currentDate) {
+        // SQL query to update room status
         String updateQuery = "UPDATE rooms r " +
-                "JOIN occupancy o ON r.room_id = o.room_id " +
+                "LEFT JOIN occupancy o ON r.room_id = o.room_id " +
                 "SET r.status = CASE " +
-                "WHEN o.date = ? THEN 'occupied' " +
-                "ELSE 'scheduled' " +
+                "WHEN o.room_id IS NOT NULL AND o.date >= ? THEN 'occupied' " +
+                "ELSE r.status " + // Keep current status for rooms without bookings today
                 "END " +
-                "WHERE r.room_id IN (SELECT DISTINCT room_id FROM occupancy WHERE date = ?)";
+                "WHERE o.date >= ? OR (o.date < ? AND DATE(NOW()) = ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(updateQuery)) {
-            statement.setString(1, date.toString());
-            statement.setString(2, date.toString());
+            statement.setString(1, currentDate.toString());
+            statement.setString(2, currentDate.toString());
+            statement.setString(3, currentDate.toString());
+            statement.setString(4, currentDate.toString());
 
             int rowsAffected = statement.executeUpdate();
             System.out.println("Rooms status updated successfully. Rows affected: " + rowsAffected);
@@ -131,6 +133,7 @@ public class DatabaseHandler {
             // Handle update error
         }
     }
+
 
     public boolean insertOccupancy(int scheduleId, int roomId, int userId, String section, String subject,
                                    String startTime, String endTime, LocalDate date) {
@@ -186,6 +189,7 @@ public class DatabaseHandler {
         }
         return occupancies;
     }
+
     public void deletePastOccupancies() {
         String deleteQuery = "DELETE FROM occupancy WHERE date < ?";
         LocalDate currentDate = LocalDate.now();

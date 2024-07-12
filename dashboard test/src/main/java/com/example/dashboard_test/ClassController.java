@@ -151,19 +151,20 @@ public class ClassController {
         dbHandler.closeConnection();
     }
 
+
+    // Initialize your DatabaseHandler instance somewhere in your class
+    private DatabaseHandler dbHandler = new DatabaseHandler();
+
     // Start the scheduler to update room status every hour
     private void startRoomStatusScheduler() {
         roomStatusScheduler = Executors.newScheduledThreadPool(1);
         roomStatusScheduler.scheduleAtFixedRate(() -> {
             // Update room status in the database
-            DatabaseHandler dbHandler = new DatabaseHandler();
-            dbHandler.updateRoomStatus(LocalDate.now()); // Example: Update based on current date
-            dbHandler.closeConnection();
-
-            // Refresh occupancy table after update
-            refreshOccupancyTable();
+            dbHandler.updateRoomStatus(LocalDate.now()); // Pass current date
+            refreshOccupancyTable(); // Refresh occupancy table after update
         }, 0, 1, TimeUnit.HOURS); // Run every hour
     }
+
 
     // Start the scheduler to delete past occupancy records daily
     private void startDeletePastRecordsScheduler() {
@@ -209,10 +210,9 @@ public class ClassController {
     }
 
     private void showDialog(int roomNumber) {
-        currentRoomNumber = roomNumber; // Store the room number
+        currentRoomNumber = roomNumber;
 
         Dialog<Void> dialog = new Dialog<>();
-
         dialog.setTitle("Room Booking");
         dialog.setHeaderText("Do you want to book room " + roomNumber + "?");
 
@@ -251,6 +251,10 @@ public class ClassController {
 
                 // After dialog closes, refresh occupancy table
                 refreshOccupancyTable();
+
+                // Update room status immediately after booking
+                dbHandler.updateRoomStatus(LocalDate.now());
+                refreshOccupancyTable(); // Refresh occupancy table after immediate update
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -315,37 +319,6 @@ public class ClassController {
         table.getColumns().add(courseColumn);
 
         return table;
-    }
-
-    // Method to update room status based on selected date
-    @FXML
-    private void updateRoomStatus(ActionEvent event) {
-        Dialog<LocalDate> dialog = new Dialog<>();
-        dialog.setTitle("Update Room Status");
-        dialog.setHeaderText("Select a date to update room status:");
-
-        DatePicker datePicker = new DatePicker();
-        dialog.getDialogPane().setContent(datePicker);
-
-        ButtonType updateButtonType = new ButtonType("Update", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(updateButtonType, ButtonType.CANCEL);
-
-        dialog.setResultConverter(buttonType -> {
-            if (buttonType == updateButtonType) {
-                return datePicker.getValue();
-            }
-            return null;
-        });
-
-        dialog.showAndWait().ifPresent(selectedDate -> {
-            // Update room status in the database based on selectedDate
-            DatabaseHandler dbHandler = new DatabaseHandler();
-            dbHandler.updateRoomStatus(selectedDate);
-            dbHandler.closeConnection();
-
-            // Refresh occupancy table after update
-            refreshOccupancyTable();
-        });
     }
 
 }
