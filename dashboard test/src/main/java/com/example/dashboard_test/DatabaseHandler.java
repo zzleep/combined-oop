@@ -218,28 +218,46 @@ public class DatabaseHandler {
         }
     }
 
-    public boolean insertOccupancy(int scheduleId, int roomId, int userId, String section, String subject,
-                                   String startTime, String endTime, LocalDate date) {
-        String insertQuery = "INSERT INTO occupancy (schedule_id, room_id, userId, course_section, subject, start_time, end_time, date) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(insertQuery)) {
-            statement.setInt(1, scheduleId);
-            statement.setInt(2, roomId);
-            statement.setInt(3, userId);
-            statement.setString(4, section);
-            statement.setString(5, subject);
-            statement.setString(6, startTime);
-            statement.setString(7, endTime);
-            statement.setString(8, date.toString());
-
-            int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle insertion error
+    public boolean insertOccupancy(int scheduleId, int roomId, int userId, String section, String subject, String startTime, String endTime, LocalDate date) {
+    // Check for time overlap
+    String overlapCheckQuery = "SELECT COUNT(*) FROM occupancy WHERE room_id = ? AND date = ? AND ((start_time < ? AND end_time > ?) OR (start_time < ? AND end_time > ?))";
+    try (PreparedStatement overlapCheckStmt = connection.prepareStatement(overlapCheckQuery)) {
+        overlapCheckStmt.setInt(1, roomId);
+        overlapCheckStmt.setString(2, date.toString());
+        overlapCheckStmt.setString(3, endTime); // New booking's end time is after existing start time
+        overlapCheckStmt.setString(4, startTime); // Existing booking's end time is after new start time
+        overlapCheckStmt.setString(5, startTime); // New booking's start time is before existing end time
+        overlapCheckStmt.setString(6, endTime); // Existing booking's start time is before new end time
+        ResultSet overlapResult = overlapCheckStmt.executeQuery();
+        if (overlapResult.next() && overlapResult.getInt(1) > 0) {
+            // Overlap found, reject the booking
             return false;
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+
+    // If no overlap, proceed with insertion
+    String insertQuery = "INSERT INTO occupancy (schedule_id, room_id, userId, course_section, subject, start_time, end_time, date) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    try (PreparedStatement statement = connection.prepareStatement(insertQuery)) {
+        statement.setInt(1, scheduleId);
+        statement.setInt(2, roomId);
+        statement.setInt(3, userId);
+        statement.setString(4, section);
+        statement.setString(5, subject);
+        statement.setString(6, startTime);
+        statement.setString(7, endTime);
+        statement.setString(8, date.toString());
+
+        int rowsAffected = statement.executeUpdate();
+        return rowsAffected > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
 
     public List<Occupancy> getOccupancyData() {
         List<Occupancy> occupancies = new ArrayList<>();
