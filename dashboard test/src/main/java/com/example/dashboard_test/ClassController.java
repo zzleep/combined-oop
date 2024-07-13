@@ -46,6 +46,9 @@ public class ClassController {
 
     @FXML
     private HBox contentHBox;
+
+    @FXML
+    private Button logoutButton;
     
     @FXML
     private AnchorPane anchorPane;
@@ -89,6 +92,8 @@ public class ClassController {
     // Initialize method to populate buttonRoomMap
     @FXML
     public void initialize() {
+        logoutButton.setOnAction(event -> logout());
+
         buttonRoomMap.put("button101", 101);
         buttonRoomMap.put("button102", 102);
         buttonRoomMap.put("button103", 103);
@@ -171,6 +176,13 @@ public class ClassController {
         startDeletePastRecordsScheduler();
 
         updateRoomButtonsBasedOnStatus();
+    }
+
+    private void logout() {
+        // Perform any necessary cleanup here
+
+        // Close the application
+        Platform.exit();
     }
 
     // Method to update room buttons based on status

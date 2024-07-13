@@ -96,6 +96,18 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+
+
+    public void resetToInitialState() {
+        isLogin = true; // Assuming the initial state is the login view
+        layout.setComponentConstraints(cover, "width " + coverSize + "%, pos 1al 0 n 100%");
+        layout.setComponentConstraints(loginAndRegister, "width " + loginSize + "%, pos 0al 0 n 100%");
+        bg.revalidate();
+        bg.repaint();
+        loginAndRegister.showRegister(false);
+        cover.login(true);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

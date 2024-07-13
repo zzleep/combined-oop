@@ -46,6 +46,9 @@ public class HelloController {
     private AnchorPane anchorPane;
 
     @FXML
+    private Button logoutButton;
+
+    @FXML
     private TableView<Occupancy> occupancyTable;
 
     @FXML
@@ -86,6 +89,7 @@ public class HelloController {
     // Initialize method to populate buttonRoomMap
     @FXML
     public void initialize() {
+        logoutButton.setOnAction(event -> logout());
 
         buttonRoomMap.put("button101", 101);
         buttonRoomMap.put("button102", 102);
@@ -192,6 +196,13 @@ public class HelloController {
                 }
             }
         });
+    }
+
+    private void logout() {
+        // Perform any necessary cleanup here
+
+        // Close the application
+        Platform.exit();
     }
 
     // Start the scheduler to update room status every hour
