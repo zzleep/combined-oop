@@ -5,24 +5,240 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:controller="com.example.dashboard_test.HelloController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1136.0" prefWidth="1259.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">   <children>
-      <Pane fx:id="sidebar" layoutX="-4.0" layoutY="53.0" prefHeight="606.0" prefWidth="150.0">
-         <children>
-             <Button fx:id="sidebar_btn1" layoutX="1.0" layoutY="36.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Home"/>
-             <Button fx:id="sidebar_btn2" layoutX="1.0" layoutY="73.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Rooms" onAction="#handleSidebarButton2"/>
-            <Button fx:id="sidebar_btn3" layoutX="1.0" layoutY="110.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Class Schedule" onAction="#handleSidebarButton3"/>
-         </children>
-      </Pane>
-      <Pane fx:id="nav" layoutX="-4.0" layoutY="-1.0" prefHeight="54.0" prefWidth="1250.0">
-         <children>
-            <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="14.0" layoutY="5.0">
-               <image>
-                  <Image url="@../dashboard_test/media/puplogo.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="nv1" layoutX="59.0" layoutY="9.0" prefHeight="30.0" prefWidth="72.0" text="PUP-SRC" />
-         </children>
-      </Pane>
-   <HBox fx:id="contentHBox" layoutX="200.0" layoutY="53.0" prefHeight="606.0" prefWidth="1059.0"/>
-</children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1352.0" prefWidth="1259.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dashboard_test.HelloController">
+    <children>
+        <Pane fx:id="sidebar" layoutX="6.0" layoutY="64.0" prefHeight="1306.0" prefWidth="150.0">
+            <children>
+                <Button fx:id="sidebar_btn1" layoutY="35.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Home" />
+                <Button fx:id="sidebar_btn2" layoutY="79.0" mnemonicParsing="false" onAction="#handleSidebarButton2" prefHeight="37.0" prefWidth="150.0" text="Rooms" />
+                <Button fx:id="sidebar_btn3" layoutY="124.0" mnemonicParsing="false" onAction="#handleSidebarButton3" prefHeight="37.0" prefWidth="150.0" text="Class Schedule" />
+            </children>
+        </Pane>
+        <Pane fx:id="nav" layoutX="-4.0" layoutY="-1.0" prefHeight="54.0" prefWidth="1250.0">
+            <children>
+                <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="14.0" layoutY="5.0">
+                    <image>
+                        <Image url="@media/puplogo.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="nv1" layoutX="59.0" layoutY="9.0" prefHeight="30.0" prefWidth="72.0" text="PUP-SRC" />
+            <Button fx:id="logout" layoutX="1174.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="Log Out" />
+            </children>
+        </Pane>
+        <Label id="profName" layoutX="165.0" layoutY="70.0" onMouseClicked="#showDialog" prefHeight="46.0" prefWidth="1064.0" style="-fx-background-color: White;" textFill="WHITE" />
+        <Text fill="#940404" layoutX="190.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eco, Kimberly A." wrappingWidth="174.9367218017578">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Text>
+        <Pane id="container" layoutX="168.0" layoutY="131.0" prefHeight="639.0" prefWidth="1064.0" style="-fx-background-color: white;">
+            <children>
+                <Pane id="room-container" layoutX="14.0" layoutY="14.0" prefHeight="486.0" prefWidth="1036.0" style="-fx-background-color: white;">
+                    <children>
+                        <Pane id="title-container" prefHeight="54.0" prefWidth="1036.0" style="-fx-background-color: maroon;">
+                            <children>
+                                <Text id="classRoomText" fill="WHITE" layoutX="348.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CLASSROOMS" textAlignment="CENTER" wrappingWidth="307.26910400390625">
+                                    <font>
+                                        <Font name="System Bold" size="23.0" />
+                                    </font>
+                                </Text>
+                            </children></Pane>
+                        <GridPane layoutX="143.0" layoutY="100.0" prefHeight="72.0" prefWidth="728.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Button fx:id="buttons101" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="101" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons102" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="102" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons103" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="103" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons104" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="104" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons105" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="105" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons106" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="106" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons107" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="107" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons108" maxWidth="52.0" mnemonicParsing="false" prefHeight="43.0" text=" Clinic Room" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons109" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="109" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons110" maxWidth="52.0" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" text="110" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                            </children>
+                        </GridPane>
+                        <GridPane layoutX="143.0" layoutY="199.0" prefHeight="72.0" prefWidth="728.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Button fx:id="buttons201" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="201" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons202" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="Admin" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons203" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="203" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons204" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="204" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons205" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="205" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons206" alignment="CENTER" mnemonicParsing="false" prefHeight="43.0" prefWidth="53.0" text=" S. Affairs" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font></Button>
+                                <Button fx:id="buttons207" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="D. Office " textAlignment="CENTER" wrapText="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font></Button>
+                                <Button fx:id="buttons208" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="SC Office" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font></Button>
+                                <Button fx:id="buttons209" mnemonicParsing="false" prefHeight="46.0" prefWidth="56.0" text="Faculty" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font></Button>
+                                <Button fx:id="buttons210" mnemonicParsing="false" prefHeight="43.0" prefWidth="53.0" text=" S. Service" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font></Button>
+                            </children>
+                        </GridPane>
+                        <GridPane layoutX="143.0" layoutY="298.0" prefHeight="72.0" prefWidth="728.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Button fx:id="buttons301" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="301" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons302" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="302" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons303" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="303" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons305" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="304" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons306" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="305" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons307" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="306" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons308" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="Library" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons309" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="308" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons310" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="AVR" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons311" mnemonicParsing="false" prefHeight="43.0" prefWidth="52.0" text="AVR" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                            </children>
+                        </GridPane>
+                        <GridPane layoutX="143.0" layoutY="397.0" prefHeight="72.0" prefWidth="728.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Button fx:id="buttons401" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="401" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons402" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="402" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons403" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="403" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons404" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="404" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons405" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="405" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons406" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="406" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons407" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="407" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons408" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="408" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons409" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="409" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                <Button fx:id="buttons410" mnemonicParsing="false" onAction="#showDialog" prefHeight="43.0" prefWidth="52.0" text="410" GridPane.columnIndex="9" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                            </children>
+                        </GridPane>
+                        <Text fill="#fa2626" layoutX="443.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Floor" textAlignment="CENTER" wrappingWidth="150.4000000000001">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Text>
+                        <Text fill="#fa2626" layoutX="443.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Second Floor" textAlignment="CENTER" wrappingWidth="150.4000000000001">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Text>
+                        <Text fill="#fa2626" layoutX="443.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Third Floor" textAlignment="CENTER" wrappingWidth="150.4000000000001">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Text>
+                        <Text fill="#fa2626" layoutX="443.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fourth Floor" textAlignment="CENTER" wrappingWidth="150.4000000000001">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Text>
+                    </children>
+                </Pane>
+                <Pane layoutX="294.0" layoutY="551.0" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: #AAFF00;" />
+                <Text layoutX="320.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Available" wrappingWidth="61.59997558593727">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Text>
+                <Pane layoutX="481.0" layoutY="551.0" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: FDD53E;" />
+                <Text layoutX="507.0" layoutY="565.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scheduled" wrappingWidth="88.79998779296852">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Text>
+                <Pane layoutX="679.0" layoutY="550.0" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: red;" />
+                <Text layoutX="706.0" layoutY="564.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Occupied" wrappingWidth="88.79998779296852">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Text>
+            </children></Pane>
+        <Pane id="container" layoutX="168.0" layoutY="797.0" prefHeight="43.0" prefWidth="1064.0" style="-fx-background-color: maroon;">
+            <children>
+                <Text id="classRoomText" fill="WHITE" layoutX="269.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OVERVIEW OF CLASSROOM TRANSACTION" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="525.6690979003906">
+                    <font>
+                        <Font name="System Bold" size="21.0" />
+                    </font>
+                </Text>
+            </children></Pane>
+        <TextField layoutX="237.0" layoutY="857.0" prefHeight="37.0" prefWidth="336.0" />
+        <Text fill="#5e5a5a" layoutX="175.0" layoutY="882.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:" wrappingWidth="61.59997558593727">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </Text>
+        <TableView fx:id="occupancyTable" layoutX="168.0" layoutY="920.0" prefHeight="403.0" prefWidth="1064.0">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="99.19998168945312" text="#" />
+                <TableColumn fx:id="roomColumn" prefWidth="100.00003051757812" text="Room" />
+                <TableColumn fx:id="professorColumn" prefWidth="194.39993286132812" text="Professor" />
+                <TableColumn fx:id="courseSectionColumn" prefWidth="194.4000244140625" text="Course &amp; Section" />
+                <TableColumn fx:id="subjectColumn" prefWidth="174.39996337890625" text="Subject" />
+                <TableColumn fx:id="timeColumn" prefWidth="150.4000244140625" text="Time" />
+                <TableColumn fx:id="statusColumn" prefWidth="176.800048828125" text="Status" />
+            </columns>
+        </TableView>
+    </children>
 </AnchorPane>
