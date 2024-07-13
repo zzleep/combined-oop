@@ -4,50 +4,55 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="255.0" prefWidth="321.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dashboard_test.BookingDialogController">
+<VBox alignment="TOP_CENTER" prefHeight="262.0" prefWidth="404.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dashboard_test.BookingDialogController">
     <padding>
         <Insets bottom="10" left="10" right="10" top="10" />
     </padding>
 
     <!-- Professor Selection -->
-    <HBox spacing="10">
-        <Label text="Professor:" />
-        <ComboBox fx:id="professorComboBox" promptText="Select Professor" />
+    <HBox alignment="TOP_CENTER" spacing="10">
+        <ComboBox fx:id="professorComboBox" prefHeight="26.0" prefWidth="363.0" promptText="Select Professor">
+         <HBox.margin>
+            <Insets top="10.0" />
+         </HBox.margin></ComboBox>
     </HBox>
 
     <!-- Section Selection -->
-    <HBox spacing="10">
-        <Label text="Section:" />
-        <ComboBox fx:id="sectionComboBox" promptText="Select Section" />
+    <HBox alignment="TOP_CENTER" spacing="10">
+        <ComboBox fx:id="sectionComboBox" prefHeight="26.0" prefWidth="363.0" promptText="Select Section" />
     </HBox>
 
     <!-- Subject Selection -->
-    <HBox spacing="10">
-        <Label text="Subject:" />
-        <ComboBox fx:id="subjectComboBox" promptText="Select Subject" />
+    <HBox alignment="TOP_CENTER" spacing="10">
+        <ComboBox fx:id="subjectComboBox" prefHeight="26.0" prefWidth="363.0" promptText="Select Subject" />
     </HBox>
 
     <!-- Start Time Picker -->
-    <HBox spacing="10">
-        <Label text="Start Time:" />
-        <ComboBox fx:id="startTimePicker" promptText="Select Start Time" />
-    </HBox>
+    <HBox alignment="TOP_CENTER" spacing="10" />
 
     <!-- End Time Picker -->
-    <HBox spacing="10">
-        <Label text="End Time:" />
-        <ComboBox fx:id="endTimePicker" promptText="Select End Time" />
+    <HBox alignment="TOP_CENTER" spacing="10">
+        <ComboBox fx:id="startTimePicker" prefHeight="26.0" prefWidth="173.0" promptText="Select Start Time" />
+        <ComboBox fx:id="endTimePicker" prefHeight="26.0" prefWidth="183.0" promptText="Select End Time" />
     </HBox>
 
     <!-- Date Picker -->
-    <HBox spacing="10">
-        <Label text="Date:" />
-        <DatePicker fx:id="datePicker" promptText="Select Date" />
+    <HBox alignment="TOP_CENTER" spacing="10">
+        <DatePicker fx:id="datePicker" prefHeight="26.0" prefWidth="370.0" promptText="Select Date" />
     </HBox>
 
     <!-- Buttons -->
-    <HBox spacing="10">
-        <Button onAction="#handleSave" text="Save" />
-        <Button onAction="#handleExit" text="Exit" />
+    <HBox prefHeight="34.0" prefWidth="375.0" spacing="10">
+        <Button onAction="#handleSave" prefHeight="34.0" prefWidth="41.0" text="Save">
+         <HBox.margin>
+            <Insets left="6.0" />
+         </HBox.margin></Button>
+        <Button onAction="#handleExit" prefHeight="34.0" prefWidth="43.0" text="Exit" />
+      <VBox.margin>
+         <Insets top="1.0" />
+      </VBox.margin>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets>
     </HBox>
 </VBox>
