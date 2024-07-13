@@ -349,6 +349,7 @@ public class ClassController {
 
                 // Update room status immediately after booking
                 dbHandler.updateRoomStatus(LocalDate.now());
+                updateRoomButtonsBasedOnStatus(); // Update room buttons colors based on status
                 refreshOccupancyTable(); // Refresh occupancy table after immediate update
             });
         } catch (IOException e) {
