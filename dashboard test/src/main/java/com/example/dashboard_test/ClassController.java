@@ -370,7 +370,7 @@ public class ClassController {
             // Set up stage asynchronously
             Platform.runLater(() -> {
                 bookingStage = new Stage();
-                bookingStage.setTitle("Course and Subject Booking");
+                bookingStage.setTitle("Room Booking");
                 bookingStage.setScene(new Scene(parent));
                 bookingStage.initModality(Modality.APPLICATION_MODAL);
                 bookingStage.showAndWait();
