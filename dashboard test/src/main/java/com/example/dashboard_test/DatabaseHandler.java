@@ -319,11 +319,49 @@ public class DatabaseHandler {
         }
     }
 
-    public void deleteOccupancy(int occupancyId) {
-        String query = "DELETE FROM occupancy WHERE occupancy_id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, occupancyId);
-            statement.executeUpdate();
+    public void deleteOccupancy(int occupancyId, Runnable onDeletionComplete) {
+        String getRoomIdQuery = "SELECT room_id FROM occupancy WHERE occupancy_id = ?";
+        String deleteOccupancyQuery = "DELETE FROM occupancy WHERE occupancy_id = ?";
+        String updateRoomStatusQuery = "UPDATE rooms r " +
+                "LEFT JOIN (SELECT room_id FROM occupancy WHERE date >= CURDATE() AND room_id = ? LIMIT 1) o " +
+                "ON r.room_id = o.room_id " +
+                "SET r.status = CASE " +
+                "WHEN o.room_id IS NULL THEN 'available' " +
+                "ELSE r.status " +
+                "END " +
+                "WHERE r.room_id = ?";
+
+        try {
+            // Get room_id for the occupancy being deleted
+            PreparedStatement getRoomIdStatement = connection.prepareStatement(getRoomIdQuery);
+            getRoomIdStatement.setInt(1, occupancyId);
+            ResultSet resultSet = getRoomIdStatement.executeQuery();
+
+            int roomId = 0;
+            if (resultSet.next()) {
+                roomId = resultSet.getInt("room_id");
+            }
+
+            // Delete the occupancy record
+            PreparedStatement deleteStatement = connection.prepareStatement(deleteOccupancyQuery);
+            deleteStatement.setInt(1, occupancyId);
+            int affectedRows = deleteStatement.executeUpdate();
+
+            if (affectedRows > 0) {
+                // Update room status if no future bookings exist for the room
+                PreparedStatement updateRoomStatusStatement = connection.prepareStatement(updateRoomStatusQuery);
+                updateRoomStatusStatement.setInt(1, roomId);
+                updateRoomStatusStatement.setInt(2, roomId);
+                updateRoomStatusStatement.executeUpdate();
+
+                // Invoke callback to notify completion
+                if (onDeletionComplete != null) {
+                    onDeletionComplete.run();
+                }
+            } else {
+                // Handle case where no rows were deleted
+                System.out.println("No rows were deleted for occupancy ID: " + occupancyId);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle delete error

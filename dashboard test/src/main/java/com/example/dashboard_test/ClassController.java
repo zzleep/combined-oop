@@ -159,7 +159,7 @@ public class ClassController {
         String currentUserName = getCurrentUserName();
         userNameText.setText(currentUserName);
 
-        deleteColumn.setCellFactory(col -> new ButtonCell(occupancyTable, new DatabaseHandler()));
+        deleteColumn.setCellFactory(col -> new ButtonCell());
 
         // Load data from the database initially
         refreshOccupancyTable();
@@ -173,27 +173,28 @@ public class ClassController {
         updateRoomButtonsBasedOnStatus();
     }
 
+    // Method to update room buttons based on status
     private void updateRoomButtonsBasedOnStatus() {
-    Map<Integer, String> roomStatuses = dbHandler.getAllRoomStatuses();
-    roomStatuses.forEach((roomNumber, status) -> {
-        Button roomButton = (Button) anchorPane.lookup("#buttons" + roomNumber); // Assuming your buttons have IDs like button101, button102, etc.
-        if (roomButton != null) {
-            switch (status) {
-                case "Available":
-                    roomButton.setStyle("-fx-background-color: #AAFF00;"); // Green
-                    break;
-                case "Scheduled":
-                    roomButton.setStyle("-fx-background-color: #FDD53E;"); // Yellow
-                    break;
-                case "Occupied":
-                    roomButton.setStyle("-fx-background-color: #FF0000;"); // Red
-                    break;
-                default:
-                    roomButton.setStyle(""); // Default style
+        Map<Integer, String> roomStatuses = dbHandler.getAllRoomStatuses();
+        roomStatuses.forEach((roomNumber, status) -> {
+            Button roomButton = (Button) anchorPane.lookup("#buttons" + roomNumber); // Corrected lookup ID
+            if (roomButton != null) {
+                switch (status) {
+                    case "Available":
+                        roomButton.setStyle("-fx-background-color: #AAFF00;"); // Green
+                        break;
+                    case "Scheduled":
+                        roomButton.setStyle("-fx-background-color: #FDD53E;"); // Yellow
+                        break;
+                    case "Occupied":
+                        roomButton.setStyle("-fx-background-color: #FF0000;"); // Red
+                        break;
+                    default:
+                        roomButton.setStyle(""); // Default style
+                }
             }
-        }
-    });
-}
+        });
+    }
 
     // Start the scheduler to update room status every hour
     public void startScheduler() {
@@ -201,7 +202,6 @@ public class ClassController {
         startDeletePastRecordsScheduler();
     }
 
-    // Method to refresh occupancy table data
     private void refreshOccupancyTable() {
         DatabaseHandler dbHandler = new DatabaseHandler();
         List<Occupancy> occupancyData = dbHandler.getOccupancyData();
@@ -225,6 +225,37 @@ public class ClassController {
             }
         }
         occupancyTable.setItems(filteredData);
+    }
+
+    // Inner class ButtonCell
+    private class ButtonCell extends TableCell<Occupancy, Void> {
+        private final Button deleteButton = new Button("Delete");
+
+        public ButtonCell() {
+            deleteButton.setOnAction(event -> {
+                Occupancy item = getTableRow().getItem();
+                if (item != null) {
+                    DatabaseHandler dbHandler = new DatabaseHandler();
+                    dbHandler.deleteOccupancy(item.getOccupancyId(), () -> {
+                        // Update UI on the JavaFX Application Thread
+                        ObservableList<Occupancy> data = occupancyTable.getItems();
+                        data.remove(item);
+                        refreshOccupancyTable();
+                        updateRoomButtonsBasedOnStatus();
+                    });
+                }
+            });
+        }
+
+        @Override
+        protected void updateItem(Void item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty) {
+                setGraphic(null);
+            } else {
+                setGraphic(deleteButton);
+            }
+        }
     }
 
     // Initialize your DatabaseHandler instance somewhere in your class
