@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1352.0" prefWidth="1259.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dashboard_test.HelloController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1352.0" prefWidth="1259.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dashboard_test.HelloController">
     <children>
         <Pane fx:id="sidebar" layoutX="6.0" layoutY="64.0" prefHeight="1306.0" prefWidth="150.0">
             <children>
                 <Button fx:id="sidebar_btn1" layoutY="35.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Home" />
-                <Button fx:id="sidebar_btn2" layoutY="79.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Rooms" onAction="#handleSidebarButton2" />
+                <Button fx:id="sidebar_btn2" layoutY="79.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Rooms" />
                 <Button fx:id="sidebar_btn3" layoutY="124.0" mnemonicParsing="false" onAction="#handleSidebarButton3" prefHeight="37.0" prefWidth="150.0" text="Class Schedule" />
             </children>
         </Pane>
@@ -18,14 +18,14 @@
             <children>
                 <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="14.0" layoutY="5.0">
                     <image>
-                        <Image url="@media/puplogo.png" />
+                        <Image url="@../dashboard_test/media/puplogo.png" />
                     </image>
                 </ImageView>
                 <Label fx:id="nv1" layoutX="59.0" layoutY="9.0" prefHeight="30.0" prefWidth="72.0" text="PUP-SRC" />
             </children>
         </Pane>
         <Label id="profName" layoutX="165.0" layoutY="70.0" onMouseClicked="#showDialog" prefHeight="46.0" prefWidth="1064.0" style="-fx-background-color: White;" textFill="WHITE" />
-        <Text fill="#940404" layoutX="190.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eco, Kimberly A." wrappingWidth="174.9367218017578">
+        <Text fx:id="userNameText" fill="#940404" layoutX="190.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.9367218017578">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
@@ -222,7 +222,7 @@
                     </font>
                 </Text>
             </children></Pane>
-        <TextField layoutX="237.0" layoutY="857.0" prefHeight="37.0" prefWidth="336.0" />
+        <TextField fx:id="searchField" layoutX="237.0" layoutY="857.0" onKeyReleased="#filterOccupancyData" prefHeight="37.0" prefWidth="336.0" />
         <Text fill="#5e5a5a" layoutX="175.0" layoutY="882.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:" wrappingWidth="61.59997558593727">
             <font>
                 <Font size="17.0" />
@@ -233,10 +233,11 @@
                 <TableColumn fx:id="idColumn" prefWidth="99.19998168945312" text="#" />
                 <TableColumn fx:id="roomColumn" prefWidth="100.00003051757812" text="Room" />
                 <TableColumn fx:id="professorColumn" prefWidth="194.39993286132812" text="Professor" />
-                <TableColumn fx:id="courseSectionColumn" prefWidth="194.4000244140625" text="Course &amp; Section" />
-                <TableColumn fx:id="subjectColumn" prefWidth="174.39996337890625" text="Subject" />
-                <TableColumn fx:id="timeColumn" prefWidth="150.4000244140625" text="Time" />
-                <TableColumn fx:id="statusColumn" prefWidth="176.800048828125" text="Status" />
+                <TableColumn fx:id="courseSectionColumn" prefWidth="149.0" text="Course &amp; Section" />
+                <TableColumn fx:id="subjectColumn" prefWidth="159.0" text="Subject" />
+                <TableColumn fx:id="timeColumn" prefWidth="145.0" text="Time" />
+                <TableColumn fx:id="statusColumn" prefWidth="122.0" text="Status" />
+                <TableColumn fx:id="deleteColumn" prefWidth="92.0" text="Delete" />
             </columns>
         </TableView>
     </children>

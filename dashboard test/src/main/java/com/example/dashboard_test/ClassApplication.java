@@ -13,7 +13,7 @@ import javafx.scene.SceneAntialiasing;
 import java.io.IOException;
 
 public class ClassApplication extends Application {
-    private ClassController classController;
+    private HelloController classController;
 
     @Override
     public void start(Stage stage) throws IOException {

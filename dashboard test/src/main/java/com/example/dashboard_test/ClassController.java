@@ -228,7 +228,7 @@ public class ClassController {
     }
 
     // Inner class ButtonCell
-    private class ButtonCell extends TableCell<Occupancy, Void> {
+    class ButtonCell extends TableCell<Occupancy, Void> {
         private final Button deleteButton = new Button("Delete");
 
         public ButtonCell() {
