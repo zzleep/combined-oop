@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ClassController {
 
-    private Stage helloStage;
+    private Stage classStage;
 
     @FXML
     private TableColumn<Occupancy, Void> deleteColumn;
@@ -393,17 +393,42 @@ public class ClassController {
         filterData(searchField.getText());
     }
 
+
     @FXML
     private void handleSidebarButton1() {
-        // Handle button 1 action
-    }
+        try {
+            if (classStage != null) {
+                classStage.close();
+            }
 
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+            Parent parent = fxmlLoader.load();
+
+            // Wrap the parent in a ScrollPane
+            ScrollPane scrollPane = new ScrollPane(parent);
+            scrollPane.setPannable(true);
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+            // Create a new scene with specified dimensions and add the scrollPane to it
+            Scene scene = new Scene(scrollPane, 1280, 720); // Set desired width and height here
+            scene.getStylesheets().add(getClass().getResource("dashboard.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Class Window"); // Optionally set a title for the new window
+            stage.show();
+
+            classStage = stage; // Correctly update the classStage reference
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void handleSidebarButton3() {
         try {
-            // Close the current helloStage
-            if (helloStage != null) {
-                helloStage.close();
+            if (classStage != null) {
+                classStage.close();
             }
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("class_schedule.fxml"));
@@ -417,10 +442,14 @@ public class ClassController {
 
             // Create a new scene with specified dimensions and add the scrollPane to it
             Scene scene = new Scene(scrollPane, 1280, 720); // Set desired width and height here
-            scene.getStylesheets().add(getClass().getResource("class_schedule.css").toExternalForm());            Stage stage = new Stage();
+            scene.getStylesheets().add(getClass().getResource("class_schedule.css").toExternalForm());
+            Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Class Window"); // Optionally set a title for the new window
             stage.show();
+
+            classStage = stage; // Correctly update the classStage reference
+
         } catch (IOException e) {
             e.printStackTrace();
         }

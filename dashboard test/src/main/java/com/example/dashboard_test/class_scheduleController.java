@@ -25,7 +25,7 @@ public class class_scheduleController {
                 helloStage.close();
             }
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("class_schedule.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("class.fxml"));
             Parent parent = fxmlLoader.load();
 
             // Wrap the parent in a ScrollPane
