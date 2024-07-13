@@ -4,11 +4,12 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1136.0" prefWidth="1259.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dashboard_test.class_scheduleController">   <children>
-    <Pane fx:id="sidebar" layoutX="-6.0" layoutY="64.0" prefHeight="1306.0" prefWidth="1259.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1136.0" prefWidth="1259.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dashboard_test.class_scheduleController">
+    <children>
+    <Pane fx:id="sidebar" layoutX="6.0" layoutY="64.0" prefHeight="1306.0" prefWidth="1259.0">
         <children>
-            <Button fx:id="sidebar_btn1" layoutX="1.0" layoutY="36.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Home" onAction="#handleSidebarButton1" />
-            <Button fx:id="sidebar_btn2" layoutX="1.0" layoutY="79.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Rooms" onAction="#handleSidebarButton2" />
+            <Button fx:id="sidebar_btn1" layoutX="1.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleSidebarButton1" prefHeight="37.0" prefWidth="150.0" text="Home" />
+            <Button fx:id="sidebar_btn2" layoutX="1.0" layoutY="79.0" mnemonicParsing="false" onAction="#handleSidebarButton2" prefHeight="37.0" prefWidth="150.0" text="Rooms" />
             <Button fx:id="sidebar_btn3" layoutX="1.0" layoutY="124.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Class Schedule" />
         </children>
     </Pane>
@@ -28,10 +29,10 @@
         <children>
             <Label prefHeight="37.0" prefWidth="1092.0" text="ECO, KIMBERLY A." textFill="RED">
             </Label>
-            <Button fx:id="adsched" onAction="#showBookingDialog" mnemonicParsing="false" prefHeight="37.0" prefWidth="333.0" text="Add Schedule" />
+            <Button fx:id="adsched" mnemonicParsing="false" onAction="#showBookingDialog" prefHeight="37.0" prefWidth="333.0" text="Add Schedule" />
         </children>
     </HBox>
-    <TableView fx:id="table" layoutX="149.0" layoutY="100.0" prefHeight="200.0" prefWidth="1078.0">
+    <TableView fx:id="table" layoutX="168.0" layoutY="100.0" prefHeight="200.0" prefWidth="1059.0">
         <columns>
             <TableColumn id="course" prefWidth="1077.0" text="Bachelor of Science in Industrial Engineering">
                 <columns>
@@ -45,7 +46,7 @@
             </TableColumn>
         </columns>
     </TableView>
-    <TableView fx:id="table1" layoutX="149.0" layoutY="306.0" prefHeight="200.0" prefWidth="1078.0">
+    <TableView fx:id="table1" layoutX="168.0" layoutY="306.0" prefHeight="200.0" prefWidth="1059.0">
         <columns>
             <TableColumn id="course" prefWidth="1077.0" text="Bachelor of Science in Industrial Engineering">
                 <columns>
@@ -59,7 +60,7 @@
             </TableColumn>
         </columns>
     </TableView>
-    <TableView fx:id="table2" layoutX="149.0" layoutY="515.0" prefHeight="200.0" prefWidth="1078.0">
+    <TableView fx:id="table2" layoutX="168.0" layoutY="515.0" prefHeight="200.0" prefWidth="1059.0">
         <columns>
             <TableColumn id="course" prefWidth="1077.0" text="Bachelor of Science in Industrial Engineering">
                 <columns>
