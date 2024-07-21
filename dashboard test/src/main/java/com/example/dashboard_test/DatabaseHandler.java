@@ -1,10 +1,6 @@
 package com.example.dashboard_test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +14,10 @@ public class DatabaseHandler {
     private static final String PASSWORD = "";
 
     private Connection connection;
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+    }
 
     public DatabaseHandler() {
         try {
@@ -232,6 +232,74 @@ public class DatabaseHandler {
         return roomStatuses;
     }
 
+    public List<Schedule> getIESchedules() {
+        List<Schedule> schedules = new ArrayList<>();
+        Integer userId = (Integer) SessionManager.getAttribute("userId");
+        String query = "SELECT * FROM Schedules WHERE userId = ? AND course_section LIKE 'BSIE%'";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int scheduleId = rs.getInt("schedule_id");
+                String courseSection = rs.getString("course_section");
+                String subjectCode = rs.getString("subject_code");
+                String subject = rs.getString("subject");
+                String date = rs.getString("date");
+                Time startTime = rs.getTime("start_time");
+                Time endTime = rs.getTime("end_time");
+                schedules.add(new Schedule(scheduleId, userId, courseSection, subjectCode, subject, date, startTime, endTime));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return schedules;
+    }
+
+    public List<Schedule> getITSchedules() {
+        List<Schedule> schedules = new ArrayList<>();
+        Integer userId = (Integer) SessionManager.getAttribute("userId");
+        String query = "SELECT * FROM Schedules WHERE userId = ? AND course_section LIKE 'BSIT%'";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int scheduleId = rs.getInt("schedule_id");
+                String courseSection = rs.getString("course_section");
+                String subjectCode = rs.getString("subject_code");
+                String subject = rs.getString("subject");
+                String date = rs.getString("date");
+                Time startTime = rs.getTime("start_time");
+                Time endTime = rs.getTime("end_time");
+                schedules.add(new Schedule(scheduleId, userId, courseSection, subjectCode, subject, date, startTime, endTime));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return schedules;
+    }
+
+    public List<Schedule> getECESchedules() {
+        List<Schedule> schedules = new ArrayList<>();
+        Integer userId = (Integer) SessionManager.getAttribute("userId");
+        String query = "SELECT * FROM Schedules WHERE userId = ? AND course_section LIKE 'BS-ECE%'";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int scheduleId = rs.getInt("schedule_id");
+                String courseSection = rs.getString("course_section");
+                String subjectCode = rs.getString("subject_code");
+                String subject = rs.getString("subject");
+                String date = rs.getString("date");
+                Time startTime = rs.getTime("start_time");
+                Time endTime = rs.getTime("end_time");
+                schedules.add(new Schedule(scheduleId, userId, courseSection, subjectCode, subject, date, startTime, endTime));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return schedules;
+    }
     public boolean insertOccupancy(int scheduleId, int roomId, int userId, String section, String subject, String startTime, String endTime, LocalDate date) {
         // Check for time overlap
         String overlapCheckQuery = "SELECT COUNT(*) FROM occupancy WHERE room_id = ? AND date = ? AND ((start_time < ? AND end_time > ?) OR (start_time < ? AND end_time > ?))";

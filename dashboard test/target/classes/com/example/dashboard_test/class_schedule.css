@@ -1,0 +1,73 @@
+ .root{
+    -fx-background-color: #ffffff;
+    -fx-font-family: 'Merriweather';
+}
+
+#sidebar_btn1, #sidebar_btn2, #sidebar_btn3 {
+-fx-background-color: transparent;
+-fx-cursor: hand;
+
+}
+
+#sidebar_btn1:hover, #sidebar_btn2:hover {
+    -fx-background-color: #800201;
+    -fx-text-fill: white;
+    -fx-background-radius: 5 0 0 5;
+     -fx-background-insets: 0 0 0 5;
+}
+
+#sidebar_btn3 {
+	-fx-background-color: #800201;
+    -fx-text-fill: white;
+    -fx-background-radius: 5 0 0 5;
+    -fx-background-insets: 0 0 0 5;
+}
+
+#nv1 {
+	-fx-text-fill: #800201;
+	-fx-text-weight: bold;
+
+}
+
+#nav {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
+    -fx-border-color: #808080;
+    -fx-border-width: 0 0 1 0;
+}
+
+#sidebar {
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
+    -fx-border-color: #808080;
+    -fx-border-width: 0 1 0 0;
+}
+
+#container{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+
+#room-container{
+    -fx-border-color: #808080;
+    -fx-border-width: 0 1 1 1;
+}
+
+#profName{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+
+#vacant{
+	-fx-background-color: #AAFF00;
+}
+
+#header-col{
+	-fx-background-color: white;
+	-fx-text-fill: black;
+}
+
+#logout:hover{
+    -fx-background-color: #800201;
+    -fx-text-fill: white;
+    -fx-background-radius: 5 5 5 5;
+     -fx-background-insets: 0 0 0 5;
+
+}

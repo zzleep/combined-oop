@@ -194,12 +194,14 @@ public class PanelLoginAndRegister extends javax.swing.JLayeredPane {
                         ResultSet rs = pstmt.executeQuery();
                         if (rs.next()) {
                             int userId = rs.getInt("userId");
+                            String userRole = rs.getString("userRole");
                             JOptionPane.showMessageDialog(null, "Login successful", "Success", JOptionPane.INFORMATION_MESSAGE);
                             // Clear input fields or perform necessary actions upon successful login
                             txtEmail.setText("");
                             txtPass.setText("");
                             // Proceed to your application's main functionality
                             SessionManager.setAttribute("userId", userId);
+                            SessionManager.setAttribute("userRole", userRole);
                             launchHelloApplication(); // Launch HelloApplication after successful login
                         } else {
                             JOptionPane.showMessageDialog(null, "Invalid email or password", "Error", JOptionPane.ERROR_MESSAGE);

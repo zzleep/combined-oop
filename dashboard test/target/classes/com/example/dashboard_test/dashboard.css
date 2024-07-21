@@ -95,7 +95,7 @@
 	-fx-text-fill: black;
 }
 
-#logout:hover{
+#logoutButton:hover{
     -fx-background-color: #800201;
     -fx-text-fill: white;
     -fx-background-radius: 5 5 5 5;

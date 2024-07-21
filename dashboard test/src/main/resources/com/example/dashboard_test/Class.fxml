@@ -9,7 +9,7 @@
     <children>
         <Pane fx:id="sidebar" layoutX="6.0" layoutY="64.0" prefHeight="1306.0" prefWidth="150.0">
             <children>
-                <Button fx:id="sidebar_btn1" layoutY="35.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Home" />
+                <Button fx:id="sidebar_btn1" layoutY="35.0" mnemonicParsing="false" onAction="#handleSidebarButton1" prefHeight="37.0" prefWidth="150.0" text="Home" />
                 <Button fx:id="sidebar_btn2" layoutY="79.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="150.0" text="Rooms" />
                 <Button fx:id="sidebar_btn3" layoutY="124.0" mnemonicParsing="false" onAction="#handleSidebarButton3" prefHeight="37.0" prefWidth="150.0" text="Class Schedule" />
             </children>
@@ -26,7 +26,7 @@
             </children>
         </Pane>
         <Label id="profName" layoutX="165.0" layoutY="70.0" onMouseClicked="#showDialog" prefHeight="46.0" prefWidth="1064.0" style="-fx-background-color: White;" textFill="WHITE" />
-        <Text fx:id="userNameText" fill="#940404" layoutX="190.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.9367218017578">
+        <Text fx:id="userNameText" fill="#940404" layoutX="175.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="321.9367218017578">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>

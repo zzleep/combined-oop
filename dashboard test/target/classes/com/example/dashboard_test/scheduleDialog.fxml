@@ -9,6 +9,11 @@
         <Insets bottom="10" left="10" right="10" top="10" />
     </padding>
 
+    <!-- Professor Name Dropdown -->
+    <HBox spacing="10">
+        <Label text="Professor Name:" />
+        <ComboBox fx:id="professorNameComboBox" prefHeight="26.0" prefWidth="141.0" />
+    </HBox>
     <!-- Section Code Input -->
     <HBox spacing="10">
         <Label text="Section Code:" />
@@ -43,5 +48,9 @@
     <HBox spacing="10">
         <Label text="End Time:" />
         <TextField fx:id="endTimeField" prefHeight="26.0" prefWidth="157.0" promptText="HH:mm" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#insertSchedule" text="Save" />
     </HBox>
 </VBox>

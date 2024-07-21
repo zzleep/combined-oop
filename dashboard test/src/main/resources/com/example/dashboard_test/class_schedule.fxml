@@ -3,10 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1136.0" prefWidth="1259.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dashboard_test.class_scheduleController">
-    <children>
-    <Pane fx:id="sidebar" layoutX="6.0" layoutY="64.0" prefHeight="1306.0" prefWidth="1259.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1136.0" prefWidth="1259.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dashboard_test.class_scheduleController">   <children>
+    <Pane fx:id="sidebar" layoutX="-6.0" layoutY="64.0" prefHeight="1306.0" prefWidth="1259.0">
         <children>
             <Button fx:id="sidebar_btn1" layoutX="1.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleSidebarButton1" prefHeight="37.0" prefWidth="150.0" text="Home" />
             <Button fx:id="sidebar_btn2" layoutX="1.0" layoutY="79.0" mnemonicParsing="false" onAction="#handleSidebarButton2" prefHeight="37.0" prefWidth="150.0" text="Rooms" />
@@ -21,56 +21,61 @@
                 </image>
             </ImageView>
             <Label fx:id="nv1" layoutX="59.0" layoutY="9.0" prefHeight="30.0" prefWidth="72.0" text="PUP-SRC" />
-            <Button fx:id="logout" layoutX="1174.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="Log Out" />
         </children>
     </Pane>
     <Pane fx:id="mainPane" layoutX="146.0" layoutY="61.0" prefHeight="606.0" prefWidth="1059.0" />
     <HBox prefHeight="100.0" prefWidth="200.0" />
     <HBox layoutX="149.0" layoutY="53.0" prefHeight="37.0" prefWidth="1078.0">
         <children>
-            <Label prefHeight="37.0" prefWidth="1092.0" text="ECO, KIMBERLY A." textFill="RED">
+            <Text fx:id="userNameText" fill="#940404" layoutX="190.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="174.9367218017578">
+                <font>
+                    <Font name="System Bold" size="22.0" />
+                </font>
+            </Text>
+            <Label prefHeight="37.0" prefWidth="1092.0" textFill="RED">
             </Label>
+
             <Button fx:id="adsched" mnemonicParsing="false" onAction="#showBookingDialog" prefHeight="37.0" prefWidth="333.0" text="Add Schedule" />
         </children>
     </HBox>
-    <TableView fx:id="table" layoutX="168.0" layoutY="100.0" prefHeight="200.0" prefWidth="1059.0">
+    <TableView fx:id="tableIE" layoutX="149.0" layoutY="100.0" prefHeight="200.0" prefWidth="1078.0">
         <columns>
             <TableColumn id="course" prefWidth="1077.0" text="Bachelor of Science in Industrial Engineering">
                 <columns>
-                    <TableColumn id="header-col" prefWidth="75.0" text="#" />
-                    <TableColumn id="header-col" prefWidth="165.0" text="Section Code" />
-                    <TableColumn id="header-col" prefWidth="188.0" text="Subject Code" />
-                    <TableColumn id="header-col" prefWidth="164.0" text="Subject" />
-                    <TableColumn id="header-col" prefWidth="132.0" text="Date" />
-                    <TableColumn id="header-col" prefWidth="353.0" text="Time" />
+                    <TableColumn fx:id="colScheduleId" prefWidth="75.0" text="#" />
+                    <TableColumn fx:id="colCourseSection" prefWidth="165.0" text="Section Code" />
+                    <TableColumn fx:id="colSubjectCode" prefWidth="188.0" text="Subject Code" />
+                    <TableColumn fx:id="colSubject" prefWidth="164.0" text="Subject" />
+                    <TableColumn fx:id="colDate" prefWidth="132.0" text="Date" />
+                    <TableColumn fx:id="colTime" prefWidth="353.0" text="Time" />
                 </columns>
             </TableColumn>
         </columns>
     </TableView>
-    <TableView fx:id="table1" layoutX="168.0" layoutY="306.0" prefHeight="200.0" prefWidth="1059.0">
+    <TableView fx:id="tableIT" layoutX="149.0" layoutY="306.0" prefHeight="200.0" prefWidth="1078.0">
         <columns>
-            <TableColumn id="course" prefWidth="1077.0" text="Bachelor of Science in Industrial Engineering">
+            <TableColumn id="course" prefWidth="1077.0" text="Bachelor of Science in Information Technology">
                 <columns>
-                    <TableColumn id="header-col" prefWidth="75.0" text="#" />
-                    <TableColumn id="header-col" prefWidth="165.0" text="Section Code" />
-                    <TableColumn id="header-col" prefWidth="188.0" text="Subject Code" />
-                    <TableColumn id="header-col" prefWidth="164.0" text="Subject" />
-                    <TableColumn id="header-col" prefWidth="132.0" text="Date" />
-                    <TableColumn id="header-col" prefWidth="353.0" text="Time" />
+                    <TableColumn fx:id="colScheduleIdIT" prefWidth="75.0" text="#" />
+                    <TableColumn fx:id="colCourseSectionIT" prefWidth="165.0" text="Section Code" />
+                    <TableColumn fx:id="colSubjectCodeIT" prefWidth="188.0" text="Subject Code" />
+                    <TableColumn fx:id="colSubjectIT" prefWidth="164.0" text="Subject" />
+                    <TableColumn fx:id="colDateIT" prefWidth="132.0" text="Date" />
+                    <TableColumn fx:id="colTimeIT" prefWidth="353.0" text="Time" />
                 </columns>
             </TableColumn>
         </columns>
     </TableView>
-    <TableView fx:id="table2" layoutX="168.0" layoutY="515.0" prefHeight="200.0" prefWidth="1059.0">
+    <TableView fx:id="tableECE" layoutX="149.0" layoutY="515.0" prefHeight="200.0" prefWidth="1078.0">
         <columns>
-            <TableColumn id="course" prefWidth="1077.0" text="Bachelor of Science in Industrial Engineering">
+            <TableColumn id="course" prefWidth="1077.0" text="Bachelor of Science in Electronics Engineering ">
                 <columns>
-                    <TableColumn id="header-col" prefWidth="75.0" text="#" />
-                    <TableColumn id="header-col" prefWidth="165.0" text="Section Code" />
-                    <TableColumn id="header-col" prefWidth="188.0" text="Subject Code" />
-                    <TableColumn id="header-col" prefWidth="164.0" text="Subject" />
-                    <TableColumn id="header-col" prefWidth="132.0" text="Date" />
-                    <TableColumn id="header-col" prefWidth="353.0" text="Time" />
+                    <TableColumn fx:id="colScheduleIdECE" prefWidth="75.0" text="#" />
+                    <TableColumn fx:id="colCourseSectionECE" prefWidth="165.0" text="Section Code" />
+                    <TableColumn fx:id="colSubjectCodeECE" prefWidth="188.0" text="Subject Code" />
+                    <TableColumn fx:id="colSubjectECE" prefWidth="164.0" text="Subject" />
+                    <TableColumn fx:id="colDateECE" prefWidth="132.0" text="Date" />
+                    <TableColumn fx:id="colTimeECE" prefWidth="353.0" text="Time" />
                 </columns>
             </TableColumn>
         </columns>
